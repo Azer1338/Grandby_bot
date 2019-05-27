@@ -1,3 +1,29 @@
 body{
 	background-color : #6B36BD;
 }
+
+img{
+	display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.HeaderText{
+	text-align: center
+}
+
+.FooterText {
+	text-align: center
+}
+
+.HeaderLogo{
+	max-width:15%;
+    height:auto;
+	
+}
+
+.FooterLogo{
+	max-width:5%;
+    height:auto;
+	
+}
