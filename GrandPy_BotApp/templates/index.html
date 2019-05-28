@@ -7,13 +7,26 @@
 			<img src="/static/img/Tchat.png"
 				alt="Tchat">
 		</div>
-		
-		<div>
-			<h4>Ou veux tu aller mon pitchoune?</h4>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-2">
 		</div>
-		<div>
-			<input type="text" id="name" name="name" required
-			minlength="4" maxlength="8" size="10">
+		
+		<div class="col-md-8">
+			<form action="/action_page.php" target="_self" method="get">
+				<div class="form-goup">
+					<label for="destinationUser">Ou veux tu aller mon pitchoune?</label>
+					
+					<input type="text" class="form-control" id="User_destination" aria-describedby="User_destination" placeholder="Tape ton adresse ici!" required>
+					
+					<input type="submit" class="btn btn-primary" value="OK">
+				</div>
+				
+			</form>
+		</div>
+		
+		<div class="col-md-2">
 		</div>
 	</div>
 </div>	
