@@ -1,5 +1,13 @@
+header{
+	background-color : #D2A6FF;
+}
+
 body{
 	background-color : #6B36BD;
+}
+
+footer{
+	background-color : #E42DFE;
 }
 
 img{
@@ -27,3 +35,4 @@ img{
     height:auto;
 	
 }
+
