@@ -14,13 +14,16 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	
 	<!-- Bootstrap CDN -->
-	<link <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <!-- Fonts -->
     <script src="https://use.fontawesome.com/470b91f216.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+	<!-- Sticky Footer CSS -->
+	<link href="/static/css/sticky-footer.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
@@ -33,7 +36,7 @@
 	<header>
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-4 d-flex justify-content-around">
+				<div class="col-md-4">
 					<img src="/static/img/GrandPy_Logo.png"
 						alt="GrandPy Apps Header logo" 
 						class="HeaderLogo">
@@ -52,7 +55,8 @@
 
 {% block content %}{% endblock %}
 
-	<footer>
+	<!-- Footer -->
+	<footer class="footer mt-auto py-3">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-3">
@@ -87,7 +91,6 @@
 			</div>
 		</div>
 	</footer>
-
 </body>
 
 </html>
