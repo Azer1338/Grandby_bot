@@ -6,6 +6,11 @@ body{
 	background-color : #6B36BD;
 }
 
+nav{
+	background-color : #B5ABFF;
+	margin-bottom: 10px;
+}
+
 footer{
 	background-color : #E42DFE;
 }
@@ -36,3 +41,46 @@ img{
 	
 }
 
+#Tchat {
+	background-color: white;
+	min-height:300px;
+}
+
+.bubble{
+	width: 300px;
+	margin: 50px auto;
+	background: #00bfb6;
+	padding: 20px;
+	text-align: center;
+	font-weight: 900;
+	color: #fff;
+	font-family: arial;
+	position:relative;
+	border-radius: 5px;
+}
+
+.bubble_right:before {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-left: 10px solid #00bfb6;
+	border-right: 10px solid transparent;
+	border-top: 10px solid #00bfb6;
+	border-bottom: 10px solid transparent;
+	right: -20px;
+	top: 6px;
+}
+
+.bubble_left:before {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-left: 10px solid transparent;
+	border-right: 10px solid #00bfb6;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid #00bfb6;
+	left: -20px;
+	bottom: 6px;
+}

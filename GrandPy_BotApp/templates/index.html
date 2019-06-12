@@ -2,30 +2,23 @@
 
 {% block content %}
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<img src="/static/img/Tchat.png"
-				alt="Tchat">
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-md-2">
-		</div>
-		
-		<div class="col-md-8">
-			<form action="/result" target="_self" method="get">
-				<div class="form-goup">
-					<label for="User_destination">Ou veux tu aller mon pitchoune?</label>
-					<input type="text" class="form-control" id="User_destination" aria-describedby="User_destination" placeholder="Tape ton adresse ici!" required>
-					
-					<input type="submit" class="btn btn-primary" value="OK">
+	<!-- Tchat Zone -->
+	<div class="row d-flex justify-content-center">
+		<div class="col-md-4" id="Tchat">
+			<div class="container-fluid">
+				<div class="row">
+					<img src="/static/img/Tchat.png" alt="Tchat">
 				</div>
-				
-			</form>
-		</div>
-		
-		<div class="col-md-2">
+
+				<div class="row bubble bubble_right">
+					Ou veux tu aller mon pitchoune?
+				</div>
+
+				<div class="row bubble bubble_left">
+					<input id="User_destination" placeholder="Tape ton adresse ici!" maxlength="30">
+					<button id="Destination_btn" class="btn btn-primary" onclick="click_Destination_btn" type="button">Envoi</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>	
