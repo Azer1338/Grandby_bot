@@ -17,12 +17,13 @@ var tchatList = [
         kind_of: "form",
         content: "Tape ton adresse ici!"
     },
+/*
     {
         from: "GrandPy",
         kind_of: "Google_Maps_answer",
         content: "Google_Maps"
     },
-/*
+
 	{
         from: GrandPy,
         kind_of: API_answer,
@@ -108,25 +109,16 @@ $('button').click(function () {
 	var localisationName = parserMethod(userRequest.value);
 	
 	// Gather the User's request
-	var tchat = {
-            from: "GrandPy",
-            kind_of: "text",
-            content: "Oh... Je connais bien "+ localisationName
-        };
+	displayPlaceName(localisationName);
 	
-	// Display User's request
-	var tchatElt = createElementDiscussion(tchat);
-	contenuElt.appendChild(tchatElt);
-        
-    // API Google Maps
-    googleMapsAPI();
-    
+	// Display maps as answer
+	answerAPI(localisationName);
+
     // API MediaWiki
 });
 
 // Parser method to keep major words
 function parserMethod(sentence){
-	console.log("parserMethod");
 	
 	// Major words finder
 	var allWordsList = [];
@@ -134,7 +126,7 @@ function parserMethod(sentence){
 	
 	// Split and add in a list
 	allWordsList = sentence.split(' ');
-	console.log(allWordsList.length);
+	console.log("La liste des mots importants est de : " + allWordsList.length);
 	
 	//  Keep major words using  stop-words method
 	// Replace parse word by O
@@ -156,42 +148,57 @@ function parserMethod(sentence){
 	return allWordsList;
 };
 
+// Add a Grand Py bubble discussion
+function displayPlaceName(place){
+	var tchat = {
+			from: "GrandPy",
+			kind_of: "text",
+			content: "Oh... Je connais bien "+ place
+		};
 
-function googleMapsAPI(){
+	// Display User's request
+	var tchatElt = createElementDiscussion(tchat);
+	contenuElt.appendChild(tchatElt);
+	
+	};
+
+// answerAPI
+function answerAPI(place){
+
+	// Display map in a bubble
+	googleMapsAPI(place);
+};
+
+// Google Maps API
+function googleMapsAPI(placeTodisplay){
 	console.log("googleMapsAPI");
 	
-	// On initialise la latitude et la longitude de Paris (centre de la carte)
-	var lat = 48.852969;
-	var lon = 2.349903;
-	var map = null;
-	// Fonction d'initialisation de la carte
-	function initMap() {
-		// Créer l'objet "map" et l'insèrer dans l'élément HTML qui a l'ID "map"
-		map = new google.maps.Map(document.getElementById("map"), {
-			// Nous plaçons le centre de la carte avec les coordonnées ci-dessus
-			center: new google.maps.LatLng(lat, lon), 
-			// Nous définissons le zoom par défaut
-			zoom: 11, 
-			// Nous définissons le type de carte (ici carte routière)
-			mapTypeId: google.maps.MapTypeId.ROADMAP, 
-			// Nous activons les options de contrôle de la carte (plan, satellite...)
-			mapTypeControl: true,
-			// Nous désactivons la roulette de souris
-			scrollwheel: false, 
-			mapTypeControlOptions: {
-				// Cette option sert à définir comment les options se placent
-				style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR 
-			},
-			// Activation des options de navigation dans la carte (zoom...)
-			navigationControl: true, 
-			navigationControlOptions: {
-				// Comment ces options doivent-elles s'afficher
-				style: google.maps.NavigationControlStyle.ZOOM_PAN 
-			}
-		});
-	}
-	window.onload = function(){
-		// Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
-		initMap(); 
+	// Add a bubble
+	var tchat = {
+		from: "GrandPy",
+        kind_of: "Google_Maps_answer",
+        content: "Google_Maps"
 	};
+	
+	// Display User's request
+	var tchatElt = createElementDiscussion(tchat);
+	contenuElt.appendChild(tchatElt);
+	
+	var destination = {
+		lat:48.85,
+		lng:2.34
+		};
+
+	var map = new google.maps.Map(
+			document.getElementById('map'),
+			{center: destination, zoom: 8}
+		);
+		
+	var marker = new google.maps.Marker(
+			{position: destination, map: map}
+		);
+
 };
+
+
+// Test
