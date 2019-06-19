@@ -17,22 +17,20 @@ var tchatList = [
         kind_of: "form",
         content: "Tape ton adresse ici!"
     },
-/*
     {
         from: "GrandPy",
         kind_of: "Google_Maps_answer",
         content: "Google_Maps"
     },
-
 	{
-        from: GrandPy,
-        kind_of: API_answer,
-        content: MediaWiki
+        from: "GrandPy",
+        kind_of: "MediaWiki_answer",
+        content: ""
     },
- */
+
 ];
 
-// Create and display a DOM elment in the thcat area
+// Create and display a DOM elment in the tchat area
 function createElementDiscussion(bubble) {
 	
 	var contentElt = document.createElement("div");
@@ -65,7 +63,7 @@ function createElementDiscussion(bubble) {
 			inputElt.setAttribute("maxlength","45");
 			contentElt.appendChild(inputElt);
 			
-			//Button
+			// Button
 			var ButtonElt = document.createElement("button");
 			ButtonElt.id = "Destination_btn";
 			ButtonElt.setAttribute("class","btn btn-primary");
@@ -78,7 +76,15 @@ function createElementDiscussion(bubble) {
 			// Text area
 			var googleElt = document.createElement("div");
 			googleElt.id = "map";
+			googleElt.style.visibility = "hidden";
 			contentElt.appendChild(googleElt);
+			break;
+		case "MediaWiki_answer":
+			// Text area
+			var mediaWikiElt = document.createElement("div");
+			mediaWikiElt.id = "wiki";
+			mediaWikiElt.style.visibility = "hidden";
+			contentElt.appendChild(mediaWikiElt);
 			break;
 		default:
 			console.log("Element built not known - Content");
@@ -106,13 +112,13 @@ $('button').click(function () {
 	var userRequest = document.getElementById("User_destination");
 	
 	// Stop-Word parsing process
-	var localisationName = parserMethod(userRequest.value);
+	var localisationNameChain  = parserMethod(userRequest.value);
 	
 	// Gather the User's request
-	displayPlaceName(localisationName);
+	displayPlaceName(localisationNameChain);
 	
 	// Display maps as answer
-	answerAPI(localisationName);
+	answerAPI(localisationNameChain);
 
     // API MediaWiki
 });
@@ -122,11 +128,10 @@ function parserMethod(sentence){
 	
 	// Major words finder
 	var allWordsList = [];
-	var majorWordsList = [];
 	
 	// Split and add in a list
 	allWordsList = sentence.split(' ');
-	console.log("La liste des mots importants est de : " + allWordsList.length);
+	console.log("La liste des mots est de : " + allWordsList.length);
 	
 	//  Keep major words using  stop-words method
 	// Replace parse word by O
@@ -145,7 +150,13 @@ function parserMethod(sentence){
 			}
 	}
 	
-	return allWordsList;
+	//
+		
+	// Convert list to string chained
+	var allWordsChain = allWordsList.join(' ');
+	console.log("La liste des mots importants sont : " + allWordsChain);
+	
+	return allWordsChain;
 };
 
 // Add a Grand Py bubble discussion
@@ -171,7 +182,7 @@ function answerAPI(place){
 
 // Google Maps API
 function googleMapsAPI(placeTodisplay){
-	console.log("googleMapsAPI");
+	console.log("googleMapsAPI: " + placeTodisplay);
 	
 	// Add a bubble
 	var tchat = {
@@ -184,21 +195,241 @@ function googleMapsAPI(placeTodisplay){
 	var tchatElt = createElementDiscussion(tchat);
 	contenuElt.appendChild(tchatElt);
 	
-	var destination = {
-		lat:48.85,
-		lng:2.34
-		};
+	//
+	var address = placeTodisplay;
+	var latlng = new google.maps.LatLng(0, 0);
+	var mapOptions = {
+		zoom: 14,
+		center: latlng
+		}
+	var map = new google.maps.Map(document.getElementById('map'),mapOptions);
+	var geocoder = new google.maps.Geocoder();
 
-	var map = new google.maps.Map(
-			document.getElementById('map'),
-			{center: destination, zoom: 8}
-		);
-		
-	var marker = new google.maps.Marker(
-			{position: destination, map: map}
-		);
+	geocoder.geocode( { 'address': address}, function(results, status) {
+		if (status == 'OK') {
+			map.setCenter(results[0].geometry.location);
+			var marker = new google.maps.Marker({
+			map: map,
+			position: results[0].geometry.location
+			});
+		} else {
+			alert('Geocode was not successful for the following reason: ' + status);
+		}
+	});
+};
 
+// Media Wiki API
+function mediaWikiAPI(place){
+
+	/* Found on Github
+	$.get("https://fr.wikipedia.org/w/api.php?origin=*&action=query&titles=" + place + "&prop=revisions&rvprop=content&format=json", function (responseWiki) {
+		if (responseWiki === undefined || responseWiki["query"] === undefined || responseWiki["query"]["pages"]["5653202"] === undefined) {
+			displayMessage(noStory);
+		} else {
+			var anecdote = responseWiki["query"]["pages"]["5653202"]["revisions"][0]["*"];
+			
+			anecdote = anecdote.split("==")[2].split("File")[0];
+			anecdote = anecdote.substring(0, 54) + anecdote.substring(56,83) + "." + anecdote.substring(122,141) + " T" + anecdote.substring(158,277);
+			anecdote = anecdote.split("[[").join("").split("]]").join("");
+			
+			var index = Math.floor(Math.random()*stories.length);
+			
+			story = stories[index];
+			displayMessage(story + anecdote);
+		}
+	});
+	*/
+};
+
+// Test
+
+/*
+
+const bubbleDiscussion = {
+	// Attributes
+	from: null,
+	kind_of: null,
+	content: null,
+	
+	// Create a DOM element
+	creationOfDOM(){
+		// DOM element
+		var bubbleElt = document.createElement("div");
+
+		// Display
+		switch (this.from) {
+			case "GrandPy":
+				bubbleElt.setAttribute("class","row bubble bubble_right");
+				break;
+			case "User":
+				bubbleElt.setAttribute("class","row bubble bubble_left");
+				break;
+			default:
+				console.log("Element built not known - Display");
+		}
+
+		// Content
+		switch (bubble.kind_of) {
+		case "text":
+		// Text area
+		var textElt = document.createElement("p");
+		textElt.textContent = bubble.content;
+		contentElt.appendChild(textElt);
+		break;
+		case "form":
+		// Input
+		var inputElt = document.createElement("input");
+		inputElt.id = "User_destination";
+		inputElt.setAttribute("placeholder",bubble.content);
+		inputElt.setAttribute("maxlength","45");
+		contentElt.appendChild(inputElt);
+
+		// Button
+		var ButtonElt = document.createElement("button");
+		ButtonElt.id = "Destination_btn";
+		ButtonElt.setAttribute("class","btn btn-primary");
+		ButtonElt.setAttribute("type","button");
+		ButtonElt.setAttribute("required", "true");
+		ButtonElt.appendChild(document.createTextNode("Envoi"));
+		contentElt.appendChild(ButtonElt);
+		break;
+		case "Google_Maps_answer":
+		// Text area
+		var googleElt = document.createElement("div");
+		googleElt.id = "map";
+		googleElt.style.visibility = "hidden";
+		contentElt.appendChild(googleElt);
+		break;
+		case "MediaWiki_answer":
+		// Text area
+		var mediaWikiElt = document.createElement("div");
+		mediaWikiElt.id = "wiki";
+		mediaWikiElt.style.visibility = "hidden";
+		contentElt.appendChild(mediaWikiElt);
+		break;
+		default:
+		console.log("Element built not known - Content");
+		}
+	};
+	
 };
 
 
-// Test
+// Object Programmation
+function character(){
+	this.name = null;
+	this.className = null;
+	
+	// Initialisation
+	this.init(){
+		// Give a DOM class name
+		switch (this.name){
+			case "GrandPy":
+				this.className = "row bubble bubble_right";
+				break;
+			case "User":
+				this.className = "row bubble bubble_left";
+				break;
+			default:
+				this.className = "row";
+				console.log("Character defined not known");
+		};
+	};
+	
+	// DOM element creation
+	this.CreationDOM(){
+		
+		// Create a bubble form discussion
+		var bubbleElt = document.createElement("div");
+		bubbleElt.setAttribute("class",this.className);
+	};
+	
+	// Display text on monitor
+	this.displayText(textToDisplay){
+		// DOM element creation
+		this.CreationDOM();
+		
+		// DOM element content
+		var textElt = document.createElement("p");
+		textElt.textContent = textToDisplay;
+		bubbleElt.appendChild(textElt);
+	};
+	
+	// Display a form on monitor
+	this.displayForm(){
+		// DOM element creation
+		this.CreationDOM();
+		
+		// Input
+		var inputElt = document.createElement("input");
+		inputElt.id = "User_destination";
+		inputElt.setAttribute("placeholder","Tape ton adresse ici!");
+		inputElt.setAttribute("maxlength","45");
+		bubbleElt.appendChild(inputElt);
+
+		// Button
+		var ButtonElt = document.createElement("button");
+		ButtonElt.id = "Destination_btn";
+		ButtonElt.setAttribute("class","btn btn-primary");
+		ButtonElt.setAttribute("type","button");
+		ButtonElt.setAttribute("required", "true");
+		ButtonElt.appendChild(document.createTextNode("Envoi"));
+		bubbleElt.appendChild(ButtonElt);
+		break;
+	
+	};
+	
+	// Display Map
+	this.displayMap(place){
+	};
+	
+	// Display short story
+	this.displayStory(place){
+	};
+	
+	// Parser string
+	ParseMethod(stringToParse){
+		
+		// Split and add in a list
+		var wordsList = sentence.split(' ');
+		console.log("La liste des mots initials est de : " + wordsList.length);
+	
+		// Keep major words using stop-words method
+		// Replace parsed word by " "
+		for(var i = 0; i < wordsList.length; i++){
+			for (var j = 0; j < parseFr.length; j++){
+				if (wordsList[i] == parseFr[j]){
+					wordsList.splice(i,1, " ");
+					}
+				}
+			};
+
+		// Remove " " words in order to clean list
+		for(var i = 0; i < wordsList.length; i++){
+			if (wordsList[i] == " "){
+				wordsList.splice(i,1);
+				i-=1;
+			}
+		}
+			
+		// Convert list to string chained
+		var wordsListChain = wordsList.join(' ');
+		console.log("La liste des mots importants sont : " + wordsListChain);
+		
+		return wordsListChain;
+	};
+	
+};
+
+// Character initialisation
+var User = new character();
+User.name = "User";
+
+var GrandPy = new character();
+GrandPy.name = "GrandPy";
+
+// Introduction
+GrandPy.displayText("Ou veux tu aller mon pitchoune?");
+User.displayForm();
+
+*/
