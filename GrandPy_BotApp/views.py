@@ -1,4 +1,8 @@
-from flask import Flask, render_template
+# -*- coding: utf-8 -*-
+
+from flask import Flask, jsonify, render_template, request
+
+#import Character
 
 app = Flask(__name__)
 
@@ -9,9 +13,18 @@ app.config.from_object('config')
 @app.route('/')
 @app.route('/index/')
 def index():
-    return render_template('index.html')
+	
+	return render_template('index.html')
 
 @app.route('/result/')
 def result():
-    return render_template('result.html',
-							place_name="Trets")
+	
+	Man1 = request.args.get('student')
+	Man2 = request.args.get('teacher')
+	place_requested = request.args.get('place')
+	
+	place_requested = place_requested + " Such a nice place"
+	
+	return place_requested
+	#return render_template('result.html',user_name = Man1)
+    #return jsonify(result="Ou veux tu aller?")
