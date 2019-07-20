@@ -4,7 +4,24 @@
 <div class="container-fluid">
 	<!-- Tchat Zone -->
 	<div class="row d-flex justify-content-center">
-		<div class="col-md-4" id="Tchat">
+		<div class="col-md-6" id="Tchat">
+			
+			<!-- GrandPy -->
+			<div class="row bubble bubble_right">
+				<p>
+					Ou veux tu aller mon pitchoune?
+				</p>
+			</div>
+			
+			<!-- User -->
+			<div class="row bubble bubble_left">
+				<input id="User_destination" placeholder="Tape ton adresse ici!">
+					<button href ={{ url_for('result') }} id="Destination_btn" class="btn btn-primary" type="button" required="True">
+						Envoi
+					</button>
+				</input>
+			</div>
+			
 		</div>
 	</div>
 </div>	

@@ -1,2 +1,4 @@
 env/
 config.py
+test_User.py
+test_MediaWiki.py

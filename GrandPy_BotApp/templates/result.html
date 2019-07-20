@@ -1,10 +1,18 @@
+{% extends 'base.html' %}
 
 {% block content %}
 <div class="container-fluid">
 	<!-- Tchat Zone -->
 	<div class="row d-flex justify-content-center">
-		<div class="col-md-4" id="Tchat">
+		<div class="col-md-4" id="map">
 		</div>
 	</div>
+	
+	<!-- Map Javascript -->
+    <script src="{{ url_for('static', filename='js/Map.js') }}" type="text/javascript" ></script>
+    
+    <!-- MediaWiki Javascript -->
+    <script src="{{ url_for('static', filename='js/MediaWiki.js') }}" type="text/javascript" ></script>  
+    
 </div>	
 {% endblock %}

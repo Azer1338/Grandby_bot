@@ -2,7 +2,8 @@
 
 from flask import Flask, jsonify, render_template, request
 
-#import Character
+from GrandPy_BotApp.User import User
+from GrandPy_BotApp.MediaWiki import MediaWiki
 
 app = Flask(__name__)
 
@@ -19,12 +20,14 @@ def index():
 @app.route('/result/')
 def result():
 	
-	Man1 = request.args.get('student')
-	Man2 = request.args.get('teacher')
-	place_requested = request.args.get('place')
+	# Creation a query
+	Minot = User()
 	
-	place_requested = place_requested + " Such a nice place"
+	# Gather the sentence from User
+	Minot.query = request.args.get('query')
+	# Parse it
+	Minot.parse_query_method()
 	
-	return place_requested
-	#return render_template('result.html',user_name = Man1)
-    #return jsonify(result="Ou veux tu aller?")
+	return render_template('result.html',
+							place_requested = Minot.query)
+	#return jsonify("Hello")

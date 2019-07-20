@@ -1,16 +1,10 @@
-// Reaching console log
-console.log("Custom JQuery loaded");
 
-// Event on click button
-$('button').click(function () {
-	// Catch the id
-	var userRequest = document.getElementById("User_destination");
-	
-	console.log("User click on button");
-	
-	$.ajax({
+// collect json file from MediaWiki website
+console.log("Map created");
+
+$.get({
 		// Route destination in views.py
-        url: '/result/',
+        url: "http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=pokemon&format=jsonfm",
         // Data to communicate
         data: {query : userRequest.value},
         // In case of succes - launch function
@@ -23,8 +17,6 @@ $('button').click(function () {
 			*/
 			},
         error : function(resultat, statut, erreur){
-			console.log("AJAX (Get) function turn crazy");
+			console.log("AJAX (Get) MediaWiki function turn crazy");
 			}
         });
-	
-	});
