@@ -4,6 +4,7 @@ from flask import Flask, jsonify, render_template, request
 
 from GrandPy_BotApp.User import User
 from GrandPy_BotApp.MediaWiki import MediaWiki
+from GrandPy_BotApp.GoogleMapAPI import GoogleMapAPI
 
 app = Flask(__name__)
 
@@ -28,6 +29,17 @@ def result():
 	
 	# Parse it
 	Minot.parse_query_method()
-
+	
+	# Generate location reference from USer's query
+	Place = GoogleMapAPI()
+	Place.placeName = Minot.query
+	Place.geocode()
+	
+	# Message
+	print("lat: %2.5f || lng: %2.5f" % (Place.lat,Place.lng))
+	
 	# Return
-	return jsonify(result = Minot.query)
+	return jsonify(result = Minot.query,
+					lat = Place.lat,
+					lng = Place.lng
+					)

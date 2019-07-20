@@ -1,5 +1,4 @@
 from GrandPy_BotApp.User import User
-from GrandPy_BotApp.MediaWiki import MediaWiki
 
 def test_parse_query_method():
 	

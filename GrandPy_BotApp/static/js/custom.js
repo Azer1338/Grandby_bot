@@ -21,11 +21,10 @@ $('button').click(function () {
         // In case of succes - json_data is return from AJAX GET call
         success: function(json_data) {
 			// Message
-            console.log(json_data.result);
-            
-			// Integration of the json_data
-			var map = document.getElementById("map");
-			map.innerHTML = json_data.result;
+            console.log(json_data);
+
+			// Generate a map through Google Map
+			initMap(json_data.lat,json_data.lng, 'googleMap')
 			},
 			
 		// In case of error
@@ -35,3 +34,17 @@ $('button').click(function () {
 			}
 		});
 	});
+
+
+// Google Map integration in the website
+function initMap(latitude, longitude, IdHTML ) {
+
+	// Grab the right id element in the HTML
+	var mapElement = document.getElementById(IdHTML);
+	
+	// Creation of the map element
+	map_ref = new google.maps.Map(mapElement, {
+		center: {lat: latitude, lng: longitude},
+		zoom: 18
+		});
+}
