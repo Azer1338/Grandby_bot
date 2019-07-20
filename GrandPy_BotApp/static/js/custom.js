@@ -1,30 +1,37 @@
-// Reaching console log
+// Message
 console.log("Custom JQuery loaded");
 
 // Event on click button
 $('button').click(function () {
-	// Catch the id
-	var userRequest = document.getElementById("User_destination");
 	
+	// Message 
 	console.log("User click on button");
 	
+	// Gather the User's sentence
+	var userRequest = document.getElementById("User_destination");
+	
 	$.ajax({
-		// Route destination in views.py
+		// Route to /result/ page in views.py
         url: '/result/',
-        // Data to communicate
+        // Data to send
         data: {query : userRequest.value},
-        // In case of succes - launch function
-        success: function(data) {
-            console.log(data);
+        // Return accepted format
+        dataType: 'json',
+        
+        // In case of succes - json_data is return from AJAX GET call
+        success: function(json_data) {
+			// Message
+            console.log(json_data.result);
             
-			/*
-			var usRequest = document.getElementById("GrandPyAnswer");
-			usRequest.innerHTML = data;
-			*/
+			// Integration of the json_data
+			var map = document.getElementById("map");
+			map.innerHTML = json_data.result;
 			},
+			
+		// In case of error
         error : function(resultat, statut, erreur){
+			// Message
 			console.log("AJAX (Get) function turn crazy");
 			}
-        });
-	
+		});
 	});

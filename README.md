@@ -30,7 +30,7 @@ GOOGLE_MAPS_KEY = 'XXXX'
 
 ###### Test
 ```
-pytest test.py
+pytest GrandPy_BotApp/
 ```
 
 ###### Run

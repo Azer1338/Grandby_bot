@@ -11,32 +11,37 @@ class User():
 		""" Initialisation.
 		"""
 		#Attribut
-		self.query = None
+		self.query = "Marseille mon amour"
 
 	def parse_query_method(self):
-		""" Keep the major words in a chain.
+		""" Keep major words using stop-words method.
 		"""
-		# Load a JSON file
+		# Load the stop words JSON file
 		with open("GrandPy_BotApp/Parse_FR.json", "r") as read_file:
 			parse_FR_list = json.load(read_file)
 		
-		# Convert a chain into list - splitting by " " element
-		allWordsList = self.query.split(' ')
-		
-		# Keep major words using stop-words method
-		# Replace parse word by O
-		for i, singleWord in enumerate(allWordsList):
-			for elmt in parse_FR_list:
-				if singleWord == elmt:
-					allWordsList[i] = " "
+		# Convert a chain into list - splitting by an " "(space) element
+		allWordsChain = self.query
+		allWordsList = allWordsChain.split(' ')
 
+		# Replace word by "space" word if it is a stop word
+		for i, singleWord in enumerate(allWordsList):
+			for stop_word in parse_FR_list:
+				if singleWord == stop_word:
+					allWordsList[i] = "space"
+		# Test
 		for b in allWordsList:
 			print("La liste parsé est de : " + b);
 			
-		# Convert a list into chain - adding a " " element
+		# Convert a list into chain - adding a " "(space) element between them
 		allWordsChain = " ".join(allWordsList)
 		
-		# Return User query parsed chain
-		self.query = allWordsChain
+		# Replace "space" word by a " " element
+		for stopword in parse_FR_list:
+			allWordsChain = allWordsChain.replace("space",'')
+			
+		# Test	
+		print("result: " + allWordsChain)
 		
-		print(self.query)
+		# Return result
+		self.query = allWordsChain

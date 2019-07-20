@@ -25,9 +25,9 @@ def result():
 	
 	# Gather the sentence from User
 	Minot.query = request.args.get('query')
+	
 	# Parse it
 	Minot.parse_query_method()
-	
-	return render_template('result.html',
-							place_requested = Minot.query)
-	#return jsonify("Hello")
+
+	# Return
+	return jsonify(result = Minot.query)
