@@ -1,5 +1,15 @@
-// Message
-console.log("Custom JQuery loaded");
+
+// Event on keyboard pressed
+$( "#User_destination" ).keypress(function( event ) {
+  // Enter key pressed
+  if ( event.which == 13 ) {
+     
+     // Message
+     console.log('User type on Enter key');
+     
+     userMessageSending();
+  }
+});
 
 // Event on click button
 $('button').click(function () {
@@ -7,6 +17,11 @@ $('button').click(function () {
 	// Message 
 	console.log("User click on button");
 	
+     userMessageSending();
+});
+
+// Actions following User's message sending to the website
+function userMessageSending(){
 	// Gather the User's sentence
 	var userRequest = document.getElementById("User_destination");
 	
@@ -36,10 +51,9 @@ $('button').click(function () {
         error: function(result, status, error_type){
 			// Message
 			console.log("AJAX (Get) function turn crazy " + error_type);
-			}
-		});
+		}
 	});
-
+};
 
 // Google Map integration in the website
 function generateMap(latitude, longitude, IdHTML ) {
@@ -60,6 +74,19 @@ function generateText(textToDisplay, IdHTML){
 // Generate a text from :textToDisplay
 // Element will be pinned to the :IdHTML
 
+	// Load GrandPy's answers
+	GrandPy = $.ajax({
+		url:"GrandPy_answer.json",
+		sucess: function(json_file){
+			console.log(json_file);
+		},
+		// In case of error
+        error: function(result, status, error_type){
+			// Message
+			console.log("AJAX (Get) function turn crazy " + error_type);
+		}
+	});
+	
 	// Grab the right id element in the HTML and modify text
 	document.getElementById(IdHTML).innerHTML = "Sais-tu que ... " + textToDisplay; 
 }
