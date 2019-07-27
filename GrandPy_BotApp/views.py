@@ -21,16 +21,14 @@ def index():
 @app.route('/result/')
 def result():
 	
-	# Creation a query
-	Minot = User()
-	
 	# Gather the sentence from User
+	Minot = User()
 	Minot.query = request.args.get('query')
 	
 	# Parse it
 	Minot.parse_query_method()
 	
-	# Generate location reference from USer's query
+	# Generate location reference from User's query
 	Place = GoogleMapAPI()
 	Place.placeName = Minot.query
 	Place.geocode()
@@ -38,23 +36,25 @@ def result():
 	# Message
 	print("---MAPS---")
 	print("lat: %2.5f || lng: %2.5f" % (Place.lat,Place.lng))
+	#
 	
 	# Generation of a MediaWiki instance
-	wikipedia = MediaWiki()
+	WikiSearch = MediaWiki()
 	
 	# Set french as language
-	wikipedia.set_api_url(api_url=u'https://fr.wikipedia.org/w/api.php', lang=u'en')
+	WikiSearch.set_api_url(api_url=u'https://fr.wikipedia.org/w/api.php', lang=u'en')
 
 	# Generate the place name from the lat lng
-	json_loc = wikipedia.geosearch(latitude= Place.lat, longitude=Place.lng)
+	json_loc = WikiSearch.geosearch(latitude= Place.lat, longitude=Place.lng)
 
 	# Search introduction sentence about the place
-	json_search = wikipedia.opensearch(json_loc[0], results=1)
+	json_search = WikiSearch.opensearch(json_loc[0], results=1)
 	
 	# Message
 	print("---MediaWiki---")
 	print(json_loc[0])
 	print(json_search[0][1])
+	#
 	
 	# Return
 	return jsonify(result = Minot.query,

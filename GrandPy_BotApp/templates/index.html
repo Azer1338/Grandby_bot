@@ -2,41 +2,44 @@
 
 {% block content %}
 <div class="container-fluid">
-	<!-- Tchat Zone -->
-	<div class="row d-flex justify-content-center">
-		<div class="col-md-6" id="Tchat">
+	<div class="row d-flex justify-content-around">
+		<!-- Left section -->
+		<div class="col-md-5">
+			
+			<!-- Tchat Zone -->
+			<div class="col-md-12" id="Tchat">
 			
 			<!-- GrandPy -->
-			<div class="row bubble bubble_right">
+			<div class="row bubble_right bubble right">
 				<p>
 					Ou veux tu aller mon pitchoune?
 				</p>
 			</div>
-			
-			<!-- User -->
-			<div class="row bubble bubble_left">
-				<input id="User_destination" placeholder="Tape ton adresse ici!">
-					<button href ={{ url_for('result') }} id="Destination_btn" class="btn btn-primary" type="button" required="True">
-						Envoi
-					</button>
-				</input>
+
+		</div>
+		
+			<!-- User's input -->		
+			<div class="col-md-12 user-input">
+				<div id="Input_bar" class="row">
+					<input id="User_destination" placeholder="Tape ton adresse ici!">
+					</input>
+				</div>
 			</div>
+
+		</div>
+		
+		<!-- Left section -->
+		<div class="col-md-5">
 			
-			<!-- Map -->
-			<div class="row bubble bubble_right" id="googleMap">
+		<!-- Maps -->
+			<div class="col-md-12" id="googleMap">
 				<p>
 					Ceci est la carte
 				</p>
 			</div>
 			
-			<!-- MediaWiki -->
-			<div class="row bubble bubble_right" id="mediaWiki">
-				<p>
-					Ceci est l'histoire
-				</p>
-			</div>
-			
 		</div>
 	</div>
+	
 </div>	
 {% endblock %}

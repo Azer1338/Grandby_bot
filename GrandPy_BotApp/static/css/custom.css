@@ -1,3 +1,5 @@
+/* ---SECTION--- */
+/* Main section */
 header{
 	background-color : #D2A6FF;
 }
@@ -21,6 +23,11 @@ img{
     margin-right: auto
 }
 
+p{
+	margin: 0em;
+}
+/* ---CLASS--- */
+/* Main section */
 .HeaderText{
 	text-align: center
 }
@@ -41,16 +48,11 @@ img{
 	
 }
 
-#Tchat {
-	background-color: white;
-	min-height:300px;
-}
-
+/* Bubble design*/
 .bubble{
-	width: auto;
-	margin: 50px auto;
+	margin: 1em 1em 1em 1em;
 	background: #00bfb6;
-	padding: 20px;
+	padding: 1em;
 	text-align: center;
 	font-weight: 900;
 	color: #fff;
@@ -59,6 +61,15 @@ img{
 	border-radius: 5px;
 }
 
+.right{
+	margin-left: 25%;
+}
+
+.left{
+	margin-right: 25%;
+}
+
+/* Triangle close to the bubble design*/
 .bubble_right:before {
 	content: "";
 	width: 0px;
@@ -72,6 +83,7 @@ img{
 	top: 6px;
 }
 
+/* Triangle close to the bubble design*/
 .bubble_left:before {
 	content: "";
 	width: 0px;
@@ -85,7 +97,38 @@ img{
 	bottom: 6px;
 }
 
+.user-input{
+	margin-bottom: 2%;
+	background: #00bfb6;
+	padding: 1em;
+	text-align: center;
+	font-weight: 900;
+	color: #fff;
+	font-family: arial;
+	position:relative;
+	border-radius: 5px;
+}
+
+/* ---ID--- */
+/* Main section */
 #googleMap{
 	height:300px;
-	width:300px;
+	min-width:300px;
 }
+
+/* Text bar bubble design*/
+#Input_bar{
+	margin:0.1%;
+}
+#User_destination{
+	width : 100%;
+}
+
+/*Tchat area*/
+#Tchat {
+	background-color: white;
+	min-height:300px;
+	overflow: auto;
+	height: 30em;
+}
+

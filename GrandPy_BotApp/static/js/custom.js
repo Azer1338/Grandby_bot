@@ -7,21 +7,13 @@ $( "#User_destination" ).keypress(function( event ) {
      // Message
      console.log('User type on Enter key');
      
-     userMessageSending();
+     // Manage the interface
+     interfaceManagement();
   }
 });
 
-// Event on click button
-$('button').click(function () {
-	
-	// Message 
-	console.log("User click on button");
-	
-     userMessageSending();
-});
-
 // Actions following User's message sending to the website
-function userMessageSending(){
+function interfaceManagement(){
 	// Gather the User's sentence
 	var userRequest = document.getElementById("User_destination");
 	
@@ -38,12 +30,16 @@ function userMessageSending(){
         success: function(json_data) {
 			// Message
             console.log(json_data);
-
-			// Generate a map through Google Map
-			generateMap(json_data.lat,json_data.lng, 'googleMap');
 			
-			// Generation of the what-about text
-			generateText(json_data.about, 'mediaWiki');
+			// Display User's request
+			displayElement("User",userRequest.value);
+			
+			// Display GrandPy's answer
+			var grandPyAnswer = randomGrandPyAnswer() + " " + json_data.about;			
+			displayElement("GrandPy",grandPyAnswer);
+			
+			// Generate a map through Google Map and display it
+			generateMap(json_data.lat,json_data.lng, 'googleMap');
 			
 			},
 			
@@ -51,6 +47,7 @@ function userMessageSending(){
         error: function(result, status, error_type){
 			// Message
 			console.log("AJAX (Get) function turn crazy " + error_type);
+			
 		}
 	});
 };
@@ -70,15 +67,56 @@ function generateMap(latitude, longitude, IdHTML ) {
 		});
 }
 
-function generateText(textToDisplay, IdHTML){
-// Generate a text from :textToDisplay
-// Element will be pinned to the :IdHTML
+// Display a message in the Tchat aera
+function displayElement (fromWho, texte){
+// Display an :element on interface with :fromWho 's design
+	
+	// Container
+	var containerElt = document.createElement("div");
+	switch (fromWho){
+		case "GrandPy":
+			containerElt.setAttribute("class","row bubble_right bubble right");
+			break;
+		case "User":
+			containerElt.setAttribute("class","row bubble_left bubble left");
+			break;
+		default:
+			console.log("containerElt not defined");
+		}
+	
+	// Content
+	var content = document.createElement("p");
+	content.textContent = texte;
+	containerElt.appendChild(content);
 
+	// Get the text area
+	var textArea = document.getElementById("Tchat");
+	textArea.insertAdjacentElement("beforeend",containerElt);
+	
+};
+
+// GrandPy's answer integration in the website
+function randomGrandPyAnswer(){
+// Generate a random text from JSON file.
+
+	// GrandPy introduction
+	var randomAnswer = "Sais-tu que ... ";
+	
 	// Load GrandPy's answers
 	GrandPy = $.ajax({
 		url:"GrandPy_answer.json",
 		sucess: function(json_file){
 			console.log(json_file);
+			
+			// Define a random number included in the json file length
+			var randomNumber = Math.floor(Match.random()* json_file.length);
+			
+			// Message
+			console.log("#: " + randomNumber + "txt: " + json_file[randomNumber]);
+			
+			// Grab the right id element in the HTML and modify text
+			randomAnswer = json_file[randomNumber]; 
+			
 		},
 		// In case of error
         error: function(result, status, error_type){
@@ -87,6 +125,6 @@ function generateText(textToDisplay, IdHTML){
 		}
 	});
 	
-	// Grab the right id element in the HTML and modify text
-	document.getElementById(IdHTML).innerHTML = "Sais-tu que ... " + textToDisplay; 
+	// Return a string
+	return randomAnswer;
 }
