@@ -17,6 +17,8 @@ class GoogleMapAPI():
 		self.gmaps = googlemaps.Client(key='AIzaSyAvQ35WfWdo2woLIF4uWCtLdZ0KLwsa0ZE')
 		
 	def geocode(self):
+		""" Provide latitude & longitude from a place name.
+		"""
 
 		# Geocoding an address		
 		geocode_data = self.gmaps.geocode(self.placeName)
@@ -24,6 +26,3 @@ class GoogleMapAPI():
 		# Gather the lat lng
 		self.lat = geocode_data[0]['geometry']['location']['lat']
 		self.lng = geocode_data[0]['geometry']['location']['lng']
-		
-		# Message
-		print("%2.3f : %2.3f" % (self.lat,self.lng))

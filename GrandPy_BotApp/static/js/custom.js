@@ -14,6 +14,8 @@ $( "#User_destination" ).keypress(function( event ) {
 
 // Actions following User's message sending to the website
 function interfaceManagement(){
+// Manage the UI
+
 	// Gather the User's sentence
 	var userRequest = document.getElementById("User_destination");
 	
@@ -34,24 +36,25 @@ function interfaceManagement(){
 			// Display User's request
 			displayElement("User",userRequest.value);
 			
-			// Display GrandPy's answer
+			// Display GrandPy's answer			
 			var grandPyAnswer = randomGrandPyAnswer() + " " + json_data.about;			
 			displayElement("GrandPy",grandPyAnswer);
 			
 			// Generate a map through Google Map and display it
 			generateMap(json_data.lat,json_data.lng, 'googleMap');
 			
-			},
+			// Retry?
+			displayElement("GrandPy","Autre part?");
+		},
 			
 		// In case of error
         error: function(result, status, error_type){
 			// Message
 			console.log("AJAX (Get) function turn crazy " + error_type);
-			
 		}
 	});
 };
-
+	
 // Google Map integration in the website
 function generateMap(latitude, longitude, IdHTML ) {
 // Generate a Google map from :latitude & :longitude
@@ -71,7 +74,7 @@ function generateMap(latitude, longitude, IdHTML ) {
 function displayElement (fromWho, texte){
 // Display an :element on interface with :fromWho 's design
 	
-	// Container
+	// Container creation
 	var containerElt = document.createElement("div");
 	switch (fromWho){
 		case "GrandPy":
@@ -82,17 +85,16 @@ function displayElement (fromWho, texte){
 			break;
 		default:
 			console.log("containerElt not defined");
-		}
+	}
 	
-	// Content
+	// Content creation
 	var content = document.createElement("p");
 	content.textContent = texte;
 	containerElt.appendChild(content);
 
-	// Get the text area
+	// Add a bubble in the tchat area
 	var textArea = document.getElementById("Tchat");
 	textArea.insertAdjacentElement("beforeend",containerElt);
-	
 };
 
 // GrandPy's answer integration in the website
@@ -103,28 +105,24 @@ function randomGrandPyAnswer(){
 	var randomAnswer = "Sais-tu que ... ";
 	
 	// Load GrandPy's answers
-	GrandPy = $.ajax({
-		url:"GrandPy_answer.json",
-		sucess: function(json_file){
+	$.getJSON(
+		"/static/json/GrandPy_answer.json",
+		function(json_file){
+			console.log("sucess - randomGrandPyAnswer");
 			console.log(json_file);
 			
 			// Define a random number included in the json file length
-			var randomNumber = Math.floor(Match.random()* json_file.length);
+			var randomNumber = Math.floor(Math.random()* json_file.Beginning.length);
 			
 			// Message
-			console.log("#: " + randomNumber + "txt: " + json_file[randomNumber]);
+			console.log("#: " + randomNumber + "|txt: " + json_file.Beginning[randomNumber]);
 			
 			// Grab the right id element in the HTML and modify text
-			randomAnswer = json_file[randomNumber]; 
-			
-		},
-		// In case of error
-        error: function(result, status, error_type){
-			// Message
-			console.log("AJAX (Get) function turn crazy " + error_type);
-		}
+			randomAnswer = json_file.Beginning[randomNumber];
 	});
+	console.log("GdPy answwer " + randomAnswer);
 	
 	// Return a string
 	return randomAnswer;
 }
+

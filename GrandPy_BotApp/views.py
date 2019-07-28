@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, jsonify, render_template, request
+from mediawiki import MediaWiki
 
 from GrandPy_BotApp.User import User
-from mediawiki import MediaWiki
 from GrandPy_BotApp.GoogleMapAPI import GoogleMapAPI
 
 app = Flask(__name__)

@@ -17,7 +17,7 @@ class User():
 		""" Keep major words using stop-words method.
 		"""
 		# Load the stop words JSON file
-		with open("GrandPy_BotApp/Parse_FR.json", "r") as read_file:
+		with open("GrandPy_BotApp/static/json/Parse_FR.json", "r") as read_file:
 			parse_FR_list = json.load(read_file)
 		
 		# Convert a chain into list - splitting by an " "(space) element
@@ -30,8 +30,10 @@ class User():
 				if singleWord == stop_word:
 					allWordsList[i] = "space"
 		# Test
+		print("---PARSE---")
+		print("Before Parse method :")
 		for b in allWordsList:
-			print("La liste parsé est de : " + b);
+			print(b);
 			
 		# Convert a list into chain - adding a " "(space) element between them
 		allWordsChain = " ".join(allWordsList)
@@ -41,7 +43,7 @@ class User():
 			allWordsChain = allWordsChain.replace("space",'')
 			
 		# Test	
-		print("result: " + allWordsChain)
+		print("After Parse method : " + allWordsChain)
 		
 		# Return result
 		self.query = allWordsChain

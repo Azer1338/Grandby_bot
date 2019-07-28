@@ -1,3 +1,0 @@
-import os
-
-GOOGLE_MAPS_KEY = "AIzaSyBdRHj_DnOYzEHO5oa0RMIWu0Wp9hrKSnY"
