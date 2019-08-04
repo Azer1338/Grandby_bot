@@ -19,6 +19,9 @@ function interfaceManagement(){
 	// Gather the User's sentence
 	var userRequest = document.getElementById("User_destination");
 	
+	// Loading picture
+	loadingPicture("on","Input_bar");
+	
 	// Call to views.py
 	$.ajax({
 		// Route to /result/ page in views.py
@@ -34,17 +37,28 @@ function interfaceManagement(){
             console.log(json_data);
 			
 			// Display User's request
-			displayElement("User",userRequest.value);
+			var request = document.createElement("p");
+			request.textContent = userRequest.value;
+			displayElement("User", request);
 			
 			// Display GrandPy's answer			
-			var grandPyAnswer = randomGrandPyAnswer() + " " + json_data.about;			
-			displayElement("GrandPy",grandPyAnswer);
+			var answer = document.createElement("p");
+			answer.textContent = randomGrandPyAnswer() + " " + json_data.about;			
+			displayElement("GrandPy",answer);
 			
 			// Generate a map through Google Map and display it
 			generateMap(json_data.lat,json_data.lng, 'googleMap');
 			
 			// Retry?
-			displayElement("GrandPy","Autre part?");
+			var enough = document.createElement("p");
+			enough.textContent = "Autre part?";
+			displayElement("GrandPy",enough);
+			
+			// Initialise the user field
+			initField();
+			
+			// Unloading picture
+			loadingPicture("off","Input_bar");
 		},
 			
 		// In case of error
@@ -71,7 +85,7 @@ function generateMap(latitude, longitude, IdHTML ) {
 }
 
 // Display a message in the Tchat aera
-function displayElement (fromWho, texte){
+function displayElement (fromWho, elt){
 // Display an :element on interface with :fromWho 's design
 	
 	// Container creation
@@ -87,10 +101,8 @@ function displayElement (fromWho, texte){
 			console.log("containerElt not defined");
 	}
 	
-	// Content creation
-	var content = document.createElement("p");
-	content.textContent = texte;
-	containerElt.appendChild(content);
+	// Push the element in the bubble
+	containerElt.appendChild(elt);
 
 	// Add a bubble in the tchat area
 	var textArea = document.getElementById("Tchat");
@@ -124,5 +136,48 @@ function randomGrandPyAnswer(){
 	
 	// Return a string
 	return randomAnswer;
-}
+};
 
+// Init user's field
+function initField(){
+
+	// Replace the filed by a blank area
+	var user = document.getElementById("User_destination");
+	
+	user.value = "";
+};
+
+// Manage the loading picture
+function loadingPicture (status,element){
+
+	switch (status) {
+		case "on":
+			// Message
+			console.log("loading pic on");
+			
+			// Add a bubble
+			var pic = document.createElement("img");
+			
+			// Modify attributs
+			pic.setAttribute("src","/static/img/loading.gif");
+			pic.id = "loading";
+			
+			// Place the image in the screen
+			var elt = document.getElementById(element);
+			
+			displayElement("GrandPy",pic);
+			break;
+			
+		case "off":
+			// Message
+			console.log("loading pic off");
+			
+			// Remove the bubble
+			var elt = document.getElementById(element);
+			
+			elt.replaceChild(elt.childNodes[2]);
+			
+			break;
+	};
+
+};	
