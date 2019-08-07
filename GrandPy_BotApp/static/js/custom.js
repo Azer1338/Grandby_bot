@@ -1,24 +1,26 @@
-// Event on keyboard pressed
+//
+
+//
 $( "#User_destination" ).keypress(function( event ) {
-  // "ENTER" key pressed
-  if ( event.which == 13 ) {
-     
-     // Message
-     console.log('User type on Enter key');
-     
-     // Call APIs, display elements to website
-     processingUserRequest();
-  }
+	// "ENTER" key pressed
+  
+	if ( event.which == 13 ) {
+		// Message
+		console.log('User type on Enter key');
+
+		// Call APIs, display elements to website
+		processingUserRequest();
+	}
 });
 
-// Actions following User's message sending to the website
+//
 function processingUserRequest(){
-// Manage the UI
+// Actions following User's message sending to the website
 
 	// Gather the User's sentence
 	var userRequest = document.getElementById("User_destination");
 	
-	// Show a loading picture
+	// Display a loading picture
 	var pic = loadingPicture("on","Input_bar");
 	displayElement("GrandPy",pic);
 	
@@ -40,13 +42,17 @@ function processingUserRequest(){
 			var request = generateTexte(userRequest.value);
 			displayElement("User", request);
 			
-			// Display GrandPy's answer
-			var answerAbout = generateTexte(json_data.sentence + " " + json_data.about);			
-			displayElement("GrandPy",answerAbout);
+			// Display GrandPy's address
+			var answerAddress = generateTexte("Voici l'adresse: " + json_data.address);			
+			displayElement("GrandPy",answerAddress);
 			
 			// Display GrandPy's map
 			var answerMap = generateMap (json_data.lat,json_data.lng);
 			displayElement("GrandPy",answerMap);
+			
+			// Display GrandPy's about
+			var answerAbout = generateTexte(json_data.sentence + " " + json_data.about);			
+			displayElement("GrandPy",answerAbout);
 			
 			// Retry?
 			var answerEnough = generateTexte("Autre part?");
@@ -66,8 +72,8 @@ function processingUserRequest(){
 		}
 	});
 };
-	
-// Google Map integration in the website
+
+//
 function generateMap(latitude, longitude) {
 // Generate a Google map from :latitude & :longitude
 // Element will be pinned to the :IdHTML
@@ -75,7 +81,7 @@ function generateMap(latitude, longitude) {
 	// Create an element as container
 	var mapElement = document.createElement("div");
 	mapElement.setAttribute("id","googleMap");
-	
+
 	// Creation of the map element
 	map_ref = new google.maps.Map(mapElement, {
 		center: {lat: latitude, lng: longitude},
@@ -85,8 +91,9 @@ function generateMap(latitude, longitude) {
 	return mapElement;
 }
 
-// Return a <p> element
+//
 function generateTexte (text){
+// Return a <p> element
 
 	// Generate a <p> element
 	var textElt = document.createElement("p");
@@ -95,9 +102,9 @@ function generateTexte (text){
 	return textElt;
 };
 
-// Return a <img> element
+//
 function generateImage(source){
-
+// Return a <img> element
 		// Generate a <p> element
 		var picture = document.createElement("img");
 		picture.setAttribute("src",source);
@@ -106,7 +113,7 @@ function generateImage(source){
 		return picture;
 };
 
-// Display a message in the Tchat aera
+//
 function displayElement (fromWho, elt){
 // Display an :element on interface with :fromWho 's design
 	
@@ -118,28 +125,31 @@ function displayElement (fromWho, elt){
 	// Depending on who is talking
 	switch (fromWho){
 		case "GrandPy":
-			containerElt.setAttribute("class","row bubble_right bubble right");
+			// Set the specific attributs
+			containerElt.setAttribute("class","row bubble_right bubble right align-items-center");
 			picture = generateImage("/static/img/GrandPy_Logo.png");
 			
 			// Fill the container with elt and picture
 			containerElt.appendChild(elt);
-			
 			containerPicture.appendChild(picture);
 			containerElt.appendChild(containerPicture);
+			
 			break;
 			
 		case "User":
-			containerElt.setAttribute("class","row bubble_left bubble left");
+			// Set the specific attributs
+			containerElt.setAttribute("class","row bubble_left bubble left align-items-center");
 			picture = generateImage("/static/img/Bebe_Logo.png");
 			
 			// Fill the container with elt and picture
 			containerPicture.appendChild(picture);
 			containerElt.appendChild(containerPicture);
-			
 			containerElt.appendChild(elt);
+			
 			break;
 			
 		default:
+			// Alert message
 			console.log("displayElement : containerElt not defined");
 	}
 	
@@ -152,35 +162,6 @@ function displayElement (fromWho, elt){
 	textArea.insertAdjacentElement("beforeend",containerElt);
 };
 
-// GrandPy's answer integration in the website
-function randomGrandPyAnswer(){
-// Generate a random text from JSON file.
-
-	// GrandPy introduction
-	var randomAnswer = "Sais-tu que ... ";
-	
-	// Load GrandPy's answers
-	$.getJSON(
-		"/static/json/GrandPy_answer.json",
-		function(json_file){
-			console.log("sucess - randomGrandPyAnswer");
-			console.log(json_file);
-			
-			// Define a random number included in the json file length
-			var randomNumber = Math.floor(Math.random()* json_file.Beginning.length);
-			
-			// Message
-			console.log("#: " + randomNumber + "|txt: " + json_file.Beginning[randomNumber]);
-			
-			// Grab the right id element in the HTML and modify text
-			randomAnswer = json_file.Beginning[randomNumber];
-	});
-	console.log("GdPy answwer " + randomAnswer);
-	
-	// Return a string
-	return randomAnswer;
-};
-
 // Init user's field
 function cleanInputForm(){
 
@@ -190,9 +171,10 @@ function cleanInputForm(){
 	user.value = "";
 };
 
-// Manage the loading picture
+//
 function loadingPicture (status){
-	
+// Manage the loading picture
+
 	// Switch On / Off the picture
 	switch (status) {
 		case "on":
@@ -222,8 +204,9 @@ function loadingPicture (status){
 	return pic;
 };
 
-// Initialisation
+//
 function grandPyIntroduction(){
+// Initialisation of the GrandPy
 	
 	// Creation of the GrandPy's first sentence
 	var init = generateTexte("Bonjour mon pitchoune! Je suis GrandPy Bot, le papi robot! Où veux tu aller?");

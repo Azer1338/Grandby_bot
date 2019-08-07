@@ -32,6 +32,10 @@ def result():
 	GrandPy = User()
 	GrandPy.random_sentence()
 	
+	# Message
+	print("---GRANDPY---")
+	print("GrandPy's answer: " + GrandPy.answer)
+	
 	# Generate location reference from User's query
 	Place = GoogleMapAPI()
 	Place.placeName = Minot.query
@@ -40,7 +44,7 @@ def result():
 	# Message
 	print("---MAPS---")
 	print("lat: %2.5f || lng: %2.5f" % (Place.lat,Place.lng))
-	#
+	print("Address: " + Place.address)
 	
 	# Generation of a MediaWiki instance
 	WikiSearch = MediaWiki()
@@ -64,6 +68,7 @@ def result():
 	return jsonify(result = Minot.query,
 					lat = Place.lat,
 					lng = Place.lng,
+					address = Place.address,
 					about = json_search[0][1],
 					sentence = GrandPy.answer
 					)

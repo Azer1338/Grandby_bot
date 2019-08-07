@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from GrandPy_BotApp.User import User
 
 def test_parse_query_method():

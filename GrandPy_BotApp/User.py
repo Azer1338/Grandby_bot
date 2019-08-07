@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-### User Class
 import json
 from random import *
 
 class User():
-	""" User's query
+	""" Character creation.
 	"""
 
 	def __init__(self):
 		""" Initialisation.
 		"""
+		
 		#Attribut
 		self.query = None
 		self.answer = None
@@ -18,6 +18,7 @@ class User():
 	def parse_query_method(self):
 		""" Keep major words using stop-words method.
 		"""
+		
 		# Load the stop words JSON file
 		with open("GrandPy_BotApp/static/json/Parse_FR.json", "r") as read_file:
 			parse_FR_list = json.load(read_file)
@@ -31,11 +32,6 @@ class User():
 			for stop_word in parse_FR_list:
 				if singleWord == stop_word:
 					allWordsList[i] = "space"
-		# Test
-		print("---PARSE---")
-		print("Before Parse method :")
-		for b in allWordsList:
-			print(b);
 			
 		# Convert a list into chain - adding a " "(space) element between them
 		allWordsChain = " ".join(allWordsList)
@@ -43,16 +39,14 @@ class User():
 		# Replace "space" word by a " " element
 		for stopword in parse_FR_list:
 			allWordsChain = allWordsChain.replace("space",'')
-			
-		# Test	
-		print("After Parse method : " + allWordsChain)
 		
 		# Return result
 		self.query = allWordsChain
 
 	def random_sentence(self):
-		""" provide a random 
+		""" Provide a random 
 		"""
+		
 		# Open the json file
 		with open("GrandPy_BotApp/static/json/GrandPy_answer.json", "r") as read_file:
 			random_answer = json.load(read_file)

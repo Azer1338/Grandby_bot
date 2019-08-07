@@ -34,7 +34,6 @@ pytest GrandPy_BotApp/
 ```
 
 ###### Run
-
 ```
 python3 run.py
 ```
