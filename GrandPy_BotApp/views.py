@@ -28,6 +28,10 @@ def result():
 	# Parse it
 	Minot.parse_query_method()
 	
+	# Random sentence from GrandPy
+	GrandPy = User()
+	GrandPy.random_sentence()
+	
 	# Generate location reference from User's query
 	Place = GoogleMapAPI()
 	Place.placeName = Minot.query
@@ -60,5 +64,6 @@ def result():
 	return jsonify(result = Minot.query,
 					lat = Place.lat,
 					lng = Place.lng,
-					about = json_search[0][1]
+					about = json_search[0][1],
+					sentence = GrandPy.answer
 					)

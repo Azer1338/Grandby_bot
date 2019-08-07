@@ -2,6 +2,7 @@
 
 ### User Class
 import json
+from random import *
 
 class User():
 	""" User's query
@@ -11,7 +12,8 @@ class User():
 		""" Initialisation.
 		"""
 		#Attribut
-		self.query = "Marseille mon amour"
+		self.query = None
+		self.answer = None
 
 	def parse_query_method(self):
 		""" Keep major words using stop-words method.
@@ -47,3 +49,16 @@ class User():
 		
 		# Return result
 		self.query = allWordsChain
+
+	def random_sentence(self):
+		""" provide a random 
+		"""
+		# Open the json file
+		with open("GrandPy_BotApp/static/json/GrandPy_answer.json", "r") as read_file:
+			random_answer = json.load(read_file)
+		
+		# Provide a random number
+		random_Number = randint(1,16)
+		
+		# Define a random sentence from the json file
+		self.answer = random_answer["Beginning"][random_Number]

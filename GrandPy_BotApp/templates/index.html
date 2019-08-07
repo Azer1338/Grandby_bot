@@ -3,43 +3,19 @@
 {% block content %}
 <div class="container-fluid">
 	<div class="row d-flex justify-content-around">
-		<!-- Left section -->
-		<div class="col-md-5">
-			
-			<!-- Tchat Zone -->
-			<div class="col-md-12" id="Tchat">
-			
-			<!-- GrandPy -->
-			<div class="row bubble_right bubble right">
-				<p>Bonjour mon pitchoune!</p>
-				<p>Je suis GrandPy Bot, ton papi robot!</p>
-				<p>Où veux tu aller?</p>
-			</div>
+		
+		<!-- Tchat Zone -->
+		<div class="col-md-8" id="Tchat">
+		</div>
 
+		<!-- User's input -->		
+		<div class="col-md-8 user-input">
+			<div id="Input_bar" class="row">
+				<input id="User_destination" placeholder="Tape ton adresse ici!">
+				</input>
+			</div>
 		</div>
 		
-			<!-- User's input -->		
-			<div class="col-md-12 user-input">
-				<div id="Input_bar" class="row">
-					<input id="User_destination" placeholder="Tape ton adresse ici!">
-					</input>
-				</div>
-			</div>
-
-		</div>
-		
-		<!-- Left section -->
-		<div class="col-md-5">
-			
-		<!-- Maps -->
-			<div class="col-md-12" id="googleMap">
-				<p>
-					Ceci est la carte
-				</p>
-			</div>
-			
-		</div>
 	</div>
-	
 </div>	
 {% endblock %}

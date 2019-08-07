@@ -1,26 +1,26 @@
-
 // Event on keyboard pressed
 $( "#User_destination" ).keypress(function( event ) {
-  // Enter key pressed
+  // "ENTER" key pressed
   if ( event.which == 13 ) {
      
      // Message
      console.log('User type on Enter key');
      
-     // Manage the interface
-     interfaceManagement();
+     // Call APIs, display elements to website
+     processingUserRequest();
   }
 });
 
 // Actions following User's message sending to the website
-function interfaceManagement(){
+function processingUserRequest(){
 // Manage the UI
 
 	// Gather the User's sentence
 	var userRequest = document.getElementById("User_destination");
 	
-	// Loading picture
-	loadingPicture("on","Input_bar");
+	// Show a loading picture
+	var pic = loadingPicture("on","Input_bar");
+	displayElement("GrandPy",pic);
 	
 	// Call to views.py
 	$.ajax({
@@ -37,25 +37,23 @@ function interfaceManagement(){
             console.log(json_data);
 			
 			// Display User's request
-			var request = document.createElement("p");
-			request.textContent = userRequest.value;
+			var request = generateTexte(userRequest.value);
 			displayElement("User", request);
 			
-			// Display GrandPy's answer			
-			var answer = document.createElement("p");
-			answer.textContent = randomGrandPyAnswer() + " " + json_data.about;			
-			displayElement("GrandPy",answer);
+			// Display GrandPy's answer
+			var answerAbout = generateTexte(json_data.sentence + " " + json_data.about);			
+			displayElement("GrandPy",answerAbout);
 			
-			// Generate a map through Google Map and display it
-			generateMap(json_data.lat,json_data.lng, 'googleMap');
+			// Display GrandPy's map
+			var answerMap = generateMap (json_data.lat,json_data.lng);
+			displayElement("GrandPy",answerMap);
 			
 			// Retry?
-			var enough = document.createElement("p");
-			enough.textContent = "Autre part?";
-			displayElement("GrandPy",enough);
+			var answerEnough = generateTexte("Autre part?");
+			displayElement("GrandPy",answerEnough);
 			
 			// Initialise the user field
-			initField();
+			cleanInputForm();
 			
 			// Unloading picture
 			loadingPicture("off","Input_bar");
@@ -70,19 +68,43 @@ function interfaceManagement(){
 };
 	
 // Google Map integration in the website
-function generateMap(latitude, longitude, IdHTML ) {
+function generateMap(latitude, longitude) {
 // Generate a Google map from :latitude & :longitude
 // Element will be pinned to the :IdHTML
 
-	// Grab the right id element in the HTML
-	var mapElement = document.getElementById(IdHTML);
+	// Create an element as container
+	var mapElement = document.createElement("div");
+	mapElement.setAttribute("id","googleMap");
 	
 	// Creation of the map element
 	map_ref = new google.maps.Map(mapElement, {
 		center: {lat: latitude, lng: longitude},
-		zoom: 18
+		zoom: 14
 		});
+
+	return mapElement;
 }
+
+// Return a <p> element
+function generateTexte (text){
+
+	// Generate a <p> element
+	var textElt = document.createElement("p");
+	textElt.textContent = text;
+
+	return textElt;
+};
+
+// Return a <img> element
+function generateImage(source){
+
+		// Generate a <p> element
+		var picture = document.createElement("img");
+		picture.setAttribute("src",source);
+		picture.setAttribute("class","generateImg");
+			
+		return picture;
+};
 
 // Display a message in the Tchat aera
 function displayElement (fromWho, elt){
@@ -90,19 +112,40 @@ function displayElement (fromWho, elt){
 	
 	// Container creation
 	var containerElt = document.createElement("div");
+	var containerPicture = document.createElement("div");
+	var picture;
+	
+	// Depending on who is talking
 	switch (fromWho){
 		case "GrandPy":
 			containerElt.setAttribute("class","row bubble_right bubble right");
+			picture = generateImage("/static/img/GrandPy_Logo.png");
+			
+			// Fill the container with elt and picture
+			containerElt.appendChild(elt);
+			
+			containerPicture.appendChild(picture);
+			containerElt.appendChild(containerPicture);
 			break;
+			
 		case "User":
 			containerElt.setAttribute("class","row bubble_left bubble left");
+			picture = generateImage("/static/img/Bebe_Logo.png");
+			
+			// Fill the container with elt and picture
+			containerPicture.appendChild(picture);
+			containerElt.appendChild(containerPicture);
+			
+			containerElt.appendChild(elt);
 			break;
+			
 		default:
-			console.log("containerElt not defined");
+			console.log("displayElement : containerElt not defined");
 	}
 	
-	// Push the element in the bubble
-	containerElt.appendChild(elt);
+	// Picture & element position
+	containerPicture.setAttribute("class","col-md-4");
+	elt.setAttribute("class","col-md-8");	
 
 	// Add a bubble in the tchat area
 	var textArea = document.getElementById("Tchat");
@@ -139,7 +182,7 @@ function randomGrandPyAnswer(){
 };
 
 // Init user's field
-function initField(){
+function cleanInputForm(){
 
 	// Replace the filed by a blank area
 	var user = document.getElementById("User_destination");
@@ -148,8 +191,9 @@ function initField(){
 };
 
 // Manage the loading picture
-function loadingPicture (status,element){
-
+function loadingPicture (status){
+	
+	// Switch On / Off the picture
 	switch (status) {
 		case "on":
 			// Message
@@ -159,13 +203,9 @@ function loadingPicture (status,element){
 			var pic = document.createElement("img");
 			
 			// Modify attributs
+			pic.setAttribute("id","loading");
 			pic.setAttribute("src","/static/img/loading.gif");
-			pic.id = "loading";
 			
-			// Place the image in the screen
-			var elt = document.getElementById(element);
-			
-			displayElement("GrandPy",pic);
 			break;
 			
 		case "off":
@@ -173,11 +213,22 @@ function loadingPicture (status,element){
 			console.log("loading pic off");
 			
 			// Remove the bubble
-			var elt = document.getElementById(element);
-			
-			elt.replaceChild(elt.childNodes[2]);
+			var elt = document.getElementById("loading");
+			elt.parentNode.remove();
 			
 			break;
 	};
+	
+	return pic;
+};
 
-};	
+// Initialisation
+function grandPyIntroduction(){
+	
+	// Creation of the GrandPy's first sentence
+	var init = generateTexte("Bonjour mon pitchoune! Je suis GrandPy Bot, le papi robot! Où veux tu aller?");
+	displayElement("GrandPy", init);	
+};
+
+// At the website launching
+grandPyIntroduction();

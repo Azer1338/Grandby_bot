@@ -26,6 +26,7 @@ img{
 p{
 	margin: 0em;
 }
+
 /* ---CLASS--- */
 /* Main section */
 .HeaderText{
@@ -39,13 +40,11 @@ p{
 .HeaderLogo{
 	max-width:15%;
     height:auto;
-	
 }
 
 .FooterLogo{
 	max-width:5%;
     height:auto;
-	
 }
 
 /* Bubble design*/
@@ -107,6 +106,13 @@ p{
 	font-family: arial;
 	position:relative;
 	border-radius: 5px;
+}
+
+.generateImg{
+	max-height: 4em;
+	max-width: auto;
+	background: white;
+	border-radius:5em;
 }
 
 /* ---ID--- */
