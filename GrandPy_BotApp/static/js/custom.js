@@ -69,6 +69,20 @@ function processingUserRequest(){
         error: function(result, status, error_type){
 			// Message
 			console.log("AJAX (Get) function turn crazy " + error_type);
+			
+			// Display User's request
+			var request = generateTexte(userRequest.value);
+			displayElement("User", request);
+			
+			// Display GrandPy's address
+			var answerAddress = generateTexte("Je ne suis pas sur d'avoir compris. Peux-tu détailler?");			
+			displayElement("GrandPy",answerAddress);
+			
+			// Initialise the user field
+			cleanInputForm();
+			
+			// Unloading picture
+			loadingPicture("off","Input_bar");
 		}
 	});
 };
