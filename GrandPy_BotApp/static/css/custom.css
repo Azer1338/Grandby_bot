@@ -142,7 +142,7 @@ h4{
 /*Tchat area*/
 #Tchat {
 	background-color: white;
-	min-height:300em;
+	min-height:30em;
 	overflow: auto;
 	height: 30em;
 }
