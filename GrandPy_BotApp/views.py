@@ -3,8 +3,9 @@
 from flask import Flask, jsonify, render_template, request
 from mediawiki import MediaWiki
 
-from GrandPy_BotApp.User import User
-from GrandPy_BotApp.GoogleMapAPI import GoogleMapAPI
+from GrandPy_BotApp.Grand_py import Grand_py
+from GrandPy_BotApp.Google_map_handler import Google_map_handler
+from GrandPy_BotApp.Media_wiki_handler import Media_wiki_handler
 
 app = Flask(__name__)
 
@@ -12,63 +13,58 @@ app = Flask(__name__)
 app.config.from_object('config')
 # To get one variable, tape app.config['MY_VARIABLE']
 
+
 @app.route('/')
 @app.route('/index/')
 def index():
-	
-	return render_template('index.html')
+
+    return render_template('index.html')
+
 
 @app.route('/result/')
 def result():
-	
-	# Gather the sentence from User
-	Minot = User()
-	Minot.query = request.args.get('query')
-	
-	# Parse it
-	Minot.parse_query_method()
-	
-	# Random sentence from GrandPy
-	GrandPy = User()
-	GrandPy.random_sentence()
-	
-	# Message
-	print("---GRANDPY---")
-	print("GrandPy's answer: " + GrandPy.answer)
-	
-	# Generate location reference from User's query
-	Place = GoogleMapAPI()
-	Place.placeName = Minot.query
-	Place.geocode()
-	
-	# Message
-	print("---MAPS---")
-	print("lat: %2.5f || lng: %2.5f" % (Place.lat,Place.lng))
-	print("Address: " + Place.address)
-	
-	# Generation of a MediaWiki instance
-	WikiSearch = MediaWiki()
-	
-	# Set french as language
-	WikiSearch.set_api_url(api_url=u'https://fr.wikipedia.org/w/api.php', lang=u'en')
 
-	# Generate the place name from the lat lng
-	json_loc = WikiSearch.geosearch(latitude= Place.lat, longitude=Place.lng)
+        # Generation
+        grand_py = Grand_py()
+        # Gather the sentence from User
+        grand_py.query = request.args.get('query')
+        # Parse it
+        grand_py.parse_query_method()
+        # Random sentence from GrandPy
+        grand_py.random_sentence()
+        # Message
+        print("------------------------------------")
+        print("---GRANDPY---")
+        print("GrandPy's answer: " + grand_py.answer)
+        print("------------------------------------")
 
-	# Search introduction sentence about the place
-	json_search = WikiSearch.opensearch(json_loc[0], results=1)
-	
-	# Message
-	print("---MediaWiki---")
-	print(json_loc[0])
-	print(json_search[0][1])
-	#
-	
-	# Return
-	return jsonify(result = Minot.query,
-					lat = Place.lat,
-					lng = Place.lng,
-					address = Place.address,
-					about = json_search[0][1],
-					sentence = GrandPy.answer
-					)
+        # Generate location reference from User's query
+        place = Google_map_handler()
+        place.place_name = grand_py.query
+        place.geocode()
+        # Message
+        print("------------------------------------")
+        print("---MAPS---")
+        print("lat: %2.5f || lng: %2.5f" % (place.lat, place.lng))
+        print("Address: " + place.address)
+        print("------------------------------------")
+
+        # Generation of a MediaWiki instance
+        place_description = Media_wiki_handler()
+        place_description.closest_place_name_known(place.lat, place.lng)
+        place_description.story_about_place()
+        # Message
+        print("------------------------------------")
+        print("---MEDIAWIKI---")
+        print(place_description.place_name)
+        print(place_description.about_sentence)
+        print("------------------------------------")
+
+        # Return
+        return jsonify( result=grand_py.query,
+                        lat=place.lat,
+                        lng=place.lng,
+                        address=place.address,
+                        about=place_description.about_sentence,
+                        sentence=grand_py.answer
+                        )
