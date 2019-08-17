@@ -7,6 +7,8 @@ from GrandPy_BotApp.Grand_py import Grand_py
 from GrandPy_BotApp.Google_map_handler import Google_map_handler
 from GrandPy_BotApp.Media_wiki_handler import Media_wiki_handler
 
+from GrandPy_BotApp.Parse_tool import * 
+
 app = Flask(__name__)
 
 # Config options - Make sure you created a 'config.py' file.
@@ -26,12 +28,11 @@ def result():
 
         # Generation
         grand_py = Grand_py()
-        # Gather the sentence from User
         grand_py.query = request.args.get('query')
         # Parse it
-        grand_py.parse_query_method()
+        grand_py.query = parsing_method(grand_py.query)
         # Random sentence from GrandPy
-        grand_py.random_sentence()
+        grand_py.introduction_sentence()
         # Message
         print("------------------------------------")
         print("---GRANDPY---")

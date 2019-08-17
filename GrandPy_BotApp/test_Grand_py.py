@@ -1,12 +1,29 @@
 # -*- coding: utf-8 -*-
 
-from GrandPy_BotApp.User import User
+from GrandPy_BotApp.Grand_py import Grand_py
 
+def test_query():
+    """ Check the initialisation of attributs.
+    """
+    
+    toto = Grand_py()
+    
+    assert toto.query == None
+    
+def test_answer():
+    """ Check the initialisation of attributs.
+    """
+    
+    toto = Grand_py()
+    
+    assert toto.answer == None
 
-def test_parse_query_method():
+def test_introduction_sentence():
+    """ Check if a sentence is pick up
+    from json file.
+    """
 
-    Toto = User()
-    Toto.query = "abord seraient 12 comparable directement avenue divers mie d'aghonne 31200 huitième Toulouse"
-    Toto.parse_query_method()
+    toto = Grand_py()
+    toto.introduction_sentence()
 
-    assert Toto.query == "  12   avenue  mie d'aghonne 31200  Toulouse"
+    assert toto.answer != None

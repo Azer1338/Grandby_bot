@@ -14,14 +14,8 @@ class Media_wiki_handler:
         self.place_name = None
         self.about_sentence = None
         
-        self.setup()
-        
-    def setup(self):
-        """ Setting up the API interface
-        """
-        
         # Set french as language
-        self.media_wiki_interface.set_api_url(api_url=u'https://fr.wikipedia.org/w/api.php', lang=u'en')
+        self.media_wiki_interface.set_api_url(api_url=u'https://fr.wikipedia.org/w/api.php', lang=u'en')       
 
     def closest_place_name_known(self, latitude, longitude):
         """ Provide a :self.place_name based
