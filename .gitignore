@@ -1,4 +1,7 @@
 env/
+.git/
+test/
+htmlcov/
+
 config.py
-test_User.py
-test_MediaWiki.py
+test_*.py
