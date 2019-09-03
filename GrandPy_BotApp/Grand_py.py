@@ -24,7 +24,7 @@ class Grand_py:
             random_answer = json.load(read_file)
 
         # Provide a random number
-        random_Number = randint(1, len(random_answer)-1)
+        random_number = randint(1, len(random_answer)-1)
 
         # Define a random sentence from the json file
-        self.answer = random_answer["Beginning"][random_Number]
+        self.answer = random_answer["Beginning"][random_number]

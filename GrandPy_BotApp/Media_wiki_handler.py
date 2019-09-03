@@ -30,10 +30,10 @@ class Media_wiki_handler:
             self.place_name = "Il n'y a pas de lieux connus proches."
         else:
             # Provide a random number
-            random_Number = randint(0, len(api_json_file)-1)
+            random_number = randint(0, len(api_json_file)-1)
 
             # One among all close places
-            self.place_name = api_json_file[random_Number]
+            self.place_name = api_json_file[random_number]
 
     def story_about_place(self):
         """ Provide a short story related to the :self.place_name.

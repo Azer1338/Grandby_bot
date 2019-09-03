@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import googlemaps
-from datetime import datetime
 
 
 class Google_map_handler:

@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 from GrandPy_BotApp import app
 
 if __name__ == "__main__":
