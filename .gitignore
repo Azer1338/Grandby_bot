@@ -1,7 +1,5 @@
 env/
 .git/
-test/
-htmlcov/
 
 config.py
 test_*.py
