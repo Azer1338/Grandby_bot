@@ -1,4 +1,10 @@
 env/
 .git/
+.idea/
+.pytest_cache/
+
+htmlcov/
+
+.env
 
 config.py
