@@ -25,8 +25,10 @@ pip install -r requirements.txt
 ```
 
 ###### Set Google Maps KEY
+```
 You need to insert your api key in config.py:
 GOOGLE_MAPS_KEY = 'XXXX'
+```
 
 ###### Test
 ```
