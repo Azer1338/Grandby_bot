@@ -97,10 +97,17 @@ function generateMap(latitude, longitude) {
 	mapElement.setAttribute("id","googleMap");
 
 	// Creation of the map element
-	map_ref = new google.maps.Map(mapElement, {
+	var map_ref = new google.maps.Map(mapElement, {
 		center: {lat: latitude, lng: longitude},
 		zoom: 14
 		});
+
+	// Specify the marker
+	var marker_ref = new google.maps.Marker({
+        position: {lat: latitude, lng: longitude},
+        map: map_ref,
+        title: 'It is fucking here, boy!'
+	});
 
 	return mapElement;
 }
