@@ -8,4 +8,4 @@ def readfile():
     return file["GOOGLE_KEY"]
 
 # Kick
-#API_GOOGLE_KEY = readfile()
+API_GOOGLE_KEY = readfile()
