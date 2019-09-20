@@ -1,11 +1,11 @@
 import json
 
-#def readfile():
+def readfile():
     # Load keys needed
-    #with open(".env", "r") as read_file:
-        #file = json.load(read_file)
+    with open(".env", "r") as read_file:
+        file = json.load(read_file)
 
-    #return file["GOOGLE_KEY"]
+    return file["GOOGLE_KEY"]
 
 # Kick
-#API_GOOGLE_KEY = readfile()
+API_GOOGLE_KEY = readfile()

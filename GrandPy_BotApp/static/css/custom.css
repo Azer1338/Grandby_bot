@@ -116,6 +116,12 @@ h4{
 	border-radius: 5px;
 }
 
+@media screen and (max-width: 768px) {
+    .user-input{
+        margin-bottom: 25%;
+    }
+}
+
 .generateImg{
 	max-height: 4em;
 	max-width: auto;
