@@ -2,11 +2,11 @@
 
 from flask import Flask, jsonify, render_template, request
 
-from GrandPy_BotApp.Grand_py import Grand_py
-from GrandPy_BotApp.Google_map_handler import Google_map_handler
-from GrandPy_BotApp.Media_wiki_handler import Media_wiki_handler
+from GrandPy_BotApp.grand_py import GrandPy
+from GrandPy_BotApp.google_map_handler import GoogleMapHandler
+from GrandPy_BotApp.media_wiki_handler import MediaWikiHandler
 
-from GrandPy_BotApp.Parse_tool import *
+from GrandPy_BotApp.parse_tool import *
 
 from config import API_GOOGLE_KEY
 
@@ -23,16 +23,18 @@ app.config.from_object('config')
 @app.route('/index/')
 def index():
 
-    # key
-    API_GOOGLE_KEY
+    # API key
+    api_key = API_GOOGLE_KEY
 
-    return render_template('index.html', key=API_GOOGLE_KEY)
+    return render_template('index.html', key=api_key)
 
 
 @app.route('/result/')
 def result():
+    # API key
+    api_key = API_GOOGLE_KEY
     # Generation
-    grand_py = Grand_py()
+    grand_py = GrandPy()
     grand_py.query = request.args.get('query')
     # Parse it
     grand_py.query = parsing_method(grand_py.query)
@@ -45,7 +47,7 @@ def result():
     print("------------------------------------")
 
     # Generate location reference from User's query
-    place = Google_map_handler()
+    place = GoogleMapHandler(api_key)
     place.place_name = grand_py.query
     place.geocode()
     # Message
@@ -56,7 +58,7 @@ def result():
     print("------------------------------------")
 
     # Generation of a MediaWiki instance
-    place_description = Media_wiki_handler()
+    place_description = MediaWikiHandler()
     place_description.closest_place_name_known(place.lat, place.lng)
     place_description.story_about_place()
     # Message

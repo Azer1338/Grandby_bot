@@ -3,7 +3,8 @@
 import json
 from random import *
 
-class Grand_py:
+
+class GrandPy:
     """ Character creation.
     """
 
@@ -11,7 +12,7 @@ class Grand_py:
         """ Initialisation.
         """
 
-        # Attribut
+        # Attribute
         self.query = None
         self.answer = None
 

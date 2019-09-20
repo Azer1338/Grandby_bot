@@ -3,7 +3,8 @@
 from mediawiki import MediaWiki
 from random import *
 
-class Media_wiki_handler:
+
+class MediaWikiHandler:
     """ MediaWiki API interface manager.
     """
     
