@@ -1,11 +1,8 @@
-import json
+from environs import Env
 
-def readfile():
-    # Load keys needed
-    with open(".env", "r") as read_file:
-        file = json.load(read_file)
+env = Env()
+env.read_env()
 
-    return file["GOOGLE_KEY"]
 
-# Kick
-API_GOOGLE_KEY = readfile()
+API_GOOGLE_KEY = env.str("GOOGLE_KEY")
+
