@@ -1,72 +1,64 @@
 # -*- coding: utf-8 -*-
 
-from GrandPy_BotApp.google_map_handler import googleMapHandler
+from GrandPy_BotApp.google_map_handler import GoogleMapHandler
+
+from config import API_GOOGLE_KEY
 
 
-def test_geocode_lat():
-    """ Modify :lat through geocode() use
-    """
+class TestGoogleMapHandler:
+    # Definition
+    HANDLER = GoogleMapHandler(API_GOOGLE_KEY)
 
-    home = googleMapHandler()
-    home.place_name = "6 Avenue du Ponceau, 95000 Cergy"
-    home.geocode()
+    def test_init_place_name(self):
+        """ Init :placeName correctly
+        """
 
-    assert home.lat == 49.0393601
+        assert self.HANDLER.place_name is None
 
+    def test_init_lat(self):
+        """ Init :lat correctly
+        """
 
-def test_geocode_lng():
-    """ Modify :lng through geocode() use
-    """
+        assert self.HANDLER.lat is None
 
-    home = googleMapHandler()
-    home.place_name = "6 Avenue du Ponceau, 95000 Cergy"
-    home.geocode()
+    def test_init_lng(self):
+        """ Init :lng correctly
+        """
 
-    assert home.lng == 2.0723879
+        assert self.HANDLER.lng is None
 
+    def test_init_address(self):
+        """ Init :address correctly
+        """
 
-def test_geocode_address():
-    """ Modify :address through geocode() use
-    """
+        assert self.HANDLER.address is None
 
-    home = googleMapHandler()
-    home.place_name = "ENSEA, paris"
-    home.geocode()
+    def test_geocode_lat(self):
+        """ Modify :lat through geocode() use
+        """
+        # Provide an address
+        self.HANDLER.place_name = "6 Avenue du Ponceau, 95000 Cergy"
+        # Geocode the address
+        self.HANDLER.geocode()
 
-    assert home.address == "6 Avenue du Ponceau, 95000 Cergy, France"
+        assert self.HANDLER.lat == 49.0393601
 
+    def test_geocode_lng(self):
+        """ Modify :lng through geocode() use
+        """
+        # Provide an address
+        self.HANDLER.place_name = "6 Avenue du Ponceau, 95000 Cergy"
+        # Geocode the address
+        self.HANDLER.geocode()
 
-def test_init_placeName():
-    """ Init :placeName correctly
-    """
+        assert self.HANDLER.lng == 2.0723879
 
-    home = googleMapHandler()
+    def test_geocode_address(self):
+        """ Modify :address through geocode() use
+        """
+        # Provide an address
+        self.HANDLER.place_name = "ENSEA, paris"
+        # Geocode the address
+        self.HANDLER.geocode()
 
-    assert home.place_name is None
-
-
-def test_init_lat():
-    """ Init :lat correctly
-    """
-
-    home = googleMapHandler()
-
-    assert home.lat is None
-
-
-def test_init_lng():
-    """ Init :lng correctly
-    """
-
-    home = googleMapHandler()
-
-    assert home.lng is None
-
-
-def test_init_address():
-    """ Init :address correctly
-    """
-
-    home = googleMapHandler()
-
-    assert home.address is None
+        assert self.HANDLER.address == "6 Avenue du Ponceau, 95000 Cergy, France"

@@ -1,32 +1,29 @@
 # -*- coding: utf-8 -*-
 
-from GrandPy_BotApp.grand_py import grandPy
+from GrandPy_BotApp.grand_py import GrandPy
 
 
-def test_query():
-    """ Check the initialisation of attributs.
-    """
+class TestGrandPy:
+    # Definition
+    GRANDDAD = GrandPy()
 
-    toto = grandPy()
+    def test_query(self):
+        """ Check the initialisation of attributes.
+        """
 
-    assert toto.query is None
+        assert self.GRANDDAD.query is None
 
+    def test_answer(self):
+        """ Check the initialisation of attributes.
+        """
 
-def test_answer():
-    """ Check the initialisation of attributs.
-    """
+        assert self.GRANDDAD.answer is None
 
-    toto = grandPy()
+    def test_introduction_sentence(self):
+        """ Check if a sentence is pick up
+        from json file.
+        """
 
-    assert toto.answer is None
+        self.GRANDDAD.introduction_sentence()
 
-
-def test_introduction_sentence():
-    """ Check if a sentence is pick up
-    from json file.
-    """
-
-    toto = grandPy()
-    toto.introduction_sentence()
-
-    assert toto.answer is not None
+        assert self.GRANDDAD.answer is not None
