@@ -70,6 +70,9 @@ def result():
     print(place_description.place_name)
     print(place_description.about_sentence)
     print("------------------------------------")
+    print("------------------------------------")
+    print(place_description.data)
+    print("------------------------------------")
 
     # Return
     return jsonify(result=grand_py.query,
