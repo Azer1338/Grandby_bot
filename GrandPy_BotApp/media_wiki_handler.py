@@ -18,9 +18,6 @@ class MediaWikiHandler:
         # Set french as language
         self.media_wiki_interface.set_api_url(api_url=u'https://fr.wikipedia.org/w/api.php', lang=u'en')
 
-        # For the mock
-        self.data = None
-
     def closest_place_name_known(self, latitude, longitude):
         """ Provide a :self.place_name based
         on :latitude and :longitude.
@@ -36,9 +33,6 @@ class MediaWikiHandler:
             # One among all close places
             self.place_name = api_json_file[0]
 
-            # For mock
-            self.data = api_json_file
-
     def story_about_place(self):
         """ Provide a short story related to the :self.place_name.
         """
@@ -53,5 +47,3 @@ class MediaWikiHandler:
 
             self.about_sentence = api_json_file[0][1]
 
-        # For mock
-        #self.data = api_json_file
