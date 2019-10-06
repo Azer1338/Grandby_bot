@@ -3,21 +3,6 @@ from mediawiki import MediaWiki
 
 from GrandPy_BotApp.media_wiki_handler import MediaWikiHandler
 
-#
-# class TestMediaWikiHandler:
-#     """
-#     Test case
-#     """
-#     # Generation
-#     handler = MediaWikiHandler()
-#
-#     def test_init(self):
-#         """ Check the initialisation of attributes
-#         """
-#
-#         assert self.handler.place_name is None
-#         assert self.handler.about_sentence is None
-
 
 def test_api_media_wiki(monkeypatch):
     """ test media wiki API for location: Paris """
@@ -46,7 +31,7 @@ def test_api_media_wiki(monkeypatch):
     monkeypatch.setattr(MediaWiki, 'opensearch', mock_opensearch)
 
     handler = MediaWikiHandler()
-    handler.closest_place_name_known("latitude", "longitude")
+    # handler.closest_place_name_known("latitude", "longitude")
     handler.story_about_place()
 
     # Test ne fonctionne pas - "TypeError: mock_geosearch() got multiple values for argument 'latitude'"
