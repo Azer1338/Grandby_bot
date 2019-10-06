@@ -33,18 +33,18 @@ class MediaWikiHandler:
         if not api_json_file:
             self.place_name = "Il n'y a pas de lieux connus proches."
         else:
-            # Provide a random number
-            random_number = randint(0, len(api_json_file)-1)
-
             # One among all close places
-            self.place_name = api_json_file[random_number]
+            self.place_name = api_json_file[0]
+
+            # For mock
+            self.data = api_json_file
 
     def story_about_place(self):
         """ Provide a short story related to the :self.place_name.
         """
         
         # API call: Search introduction sentence about the place
-        api_json_file = self.media_wiki_interface.opensearch(self.place_name, results=1)
+        api_json_file = self.media_wiki_interface.opensearch(self.place_name)
 
         # In case of the content is empty
         if not api_json_file:
@@ -53,4 +53,5 @@ class MediaWikiHandler:
 
             self.about_sentence = api_json_file[0][1]
 
-        self.data = api_json_file
+        # For mock
+        #self.data = api_json_file

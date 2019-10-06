@@ -4,7 +4,7 @@ from GrandPy_BotApp.grand_py import GrandPy
 
 
 class TestGrandPy:
-    # Definition
+    # Definition - Mockable
     GRANDDAD = GrandPy()
 
     def test_query(self):

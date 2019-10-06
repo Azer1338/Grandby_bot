@@ -6,7 +6,7 @@ from config import API_GOOGLE_KEY
 
 
 class TestGoogleMapHandler:
-    # Definition
+    # Definition - Mockable
     HANDLER = GoogleMapHandler(API_GOOGLE_KEY)
 
     def test_init_place_name(self):
