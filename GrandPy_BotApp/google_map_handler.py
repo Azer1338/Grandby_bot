@@ -16,8 +16,6 @@ class GoogleMapHandler:
         self.address = None
         self.g_maps = googlemaps.Client(key=api_key)
 
-        self.data = None
-
     def geocode(self):
         """ Provide latitude & longitude from a place name.
         """
@@ -31,6 +29,3 @@ class GoogleMapHandler:
 
         # Grab the address
         self.address = geocode_data[0]['formatted_address']
-
-        # for Mock
-        self.data = geocode_data

@@ -56,9 +56,6 @@ def result():
     print("lat: %2.5f || lng: %2.5f" % (place.lat, place.lng))
     print("Address: " + place.address)
     print("------------------------------------")
-    print("------------------------------------")
-    print(place.data)
-    print("------------------------------------")
 
     # Generation of a MediaWiki instance
     place_description = MediaWikiHandler()
@@ -69,9 +66,6 @@ def result():
     print("---MEDIAWIKI---")
     print(place_description.place_name)
     print(place_description.about_sentence)
-    print("------------------------------------")
-    print("------------------------------------")
-    print(place_description.data)
     print("------------------------------------")
 
     # Return
