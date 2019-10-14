@@ -22,7 +22,7 @@ def test_api_media_wiki(monkeypatch):
                'L’hôtel de ville de Paris, communément appellé l’Hôtel de Ville, est le bâtiment qui héberge les institutions municipales de Paris depuis 1357.',
                'https://fr.wikipedia.org/wiki/H%C3%B4tel_de_ville_de_Paris')]
 
-    def mock_geosearch(latitude="0", longitude="0"):
+    def mock_geosearch(latitude, longitude):
         return place_result
     monkeypatch.setattr(MediaWiki, 'geosearch', mock_geosearch)
 
@@ -31,10 +31,10 @@ def test_api_media_wiki(monkeypatch):
     monkeypatch.setattr(MediaWiki, 'opensearch', mock_opensearch)
 
     handler = MediaWikiHandler()
-    # handler.closest_place_name_known("latitude", "longitude")
+    # handler.closest_place_name_known(48.856614, 2.3522219)
     handler.story_about_place()
 
     # Test ne fonctionne pas - "TypeError: mock_geosearch() got multiple values for argument 'latitude'"
-    # assert handler.place_name == "Jeux olympiques d'été de 2045"
+    # assert handler.place_name == "Jeux olympiques d'été de 2024"
     #
     assert handler.about_sentence == 'L’hôtel de ville de Paris, communément appellé l’Hôtel de Ville, est le bâtiment qui héberge les institutions municipales de Paris depuis 1357.'

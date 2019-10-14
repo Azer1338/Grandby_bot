@@ -14,7 +14,7 @@ def test_api_google(monkeypatch):
         def __init__(self):
             """"""
 
-        def geocode(self,place):
+        def geocode(self, place):
 
             coordinates_result = [{'address_components': [{'long_name': 'Paris',
                                                            'short_name': 'Paris',
@@ -49,7 +49,6 @@ def test_api_google(monkeypatch):
                                              'political']}]
 
             return coordinates_result
-
 
     def mock_client(key):
         mock = MockGoogleClient()
