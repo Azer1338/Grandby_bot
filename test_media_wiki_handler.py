@@ -8,7 +8,7 @@ def test_api_media_wiki(monkeypatch):
     """ test media wiki API for location: Paris """
 
     # Mock of the function
-    def mock_geosearch(latitude, longitude, default):
+    def mock_geosearch(latitude, longitude, radius_default):
 
         place_result = ["Jeux olympiques d'été de 2024",
                         'Ports de Paris',
@@ -39,7 +39,6 @@ def test_api_media_wiki(monkeypatch):
     handler.closest_place_name_known(4.856614, 2.3522219)
     handler.story_about_place()
 
-    # Test ne fonctionne pas - "TypeError: mock_geosearch() got multiple values for argument 'latitude'"
-    assert handler.place_name == "Jeux olympiques d'été de 2024"
     #
+    assert handler.place_name == "Jeux olympiques d'été de 2024"
     assert handler.about_sentence == 'L’hôtel de ville de Paris, communément appellé l’Hôtel de Ville, est le bâtiment qui héberge les institutions municipales de Paris depuis 1357.'
