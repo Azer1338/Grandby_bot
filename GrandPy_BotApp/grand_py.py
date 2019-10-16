@@ -31,8 +31,7 @@ class GrandPy:
             self.answer = random_answer["Beginning"][random_number]
 
         except FileNotFoundError as error:
-
+            raise FileNotFoundError
             print("ERROR")
             print(error)
-            return error
 

@@ -23,7 +23,7 @@ class MediaWikiHandler:
         """
         
         # API call
-        api_json_file = self.media_wiki_interface.geosearch(latitude, longitude)
+        api_json_file = self.media_wiki_interface.geosearch(latitude=latitude, longitude=longitude)
 
         # In case of the content is empty
         if not api_json_file:
