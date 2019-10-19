@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from mediawiki import MediaWiki
+import mediawiki
 
 
 class MediaWikiHandler:
@@ -10,10 +10,13 @@ class MediaWikiHandler:
     def __init__(self):
         """ Initialisation.
         """
-        self.media_wiki_interface = MediaWiki()
+        self.media_wiki_interface = mediawiki.MediaWiki()
         self.place_name = None
         self.about_sentence = None
 
+        self.setup()
+
+    def setup(self):
         # Set french as language
         self.media_wiki_interface.set_api_url(api_url=u'https://fr.wikipedia.org/w/api.php', lang=u'en')
 

@@ -26,7 +26,8 @@ class TestGrandPy:
         assert self.Granddad.answer is not None
 
     def test_introduction_sentence_file_not_found_error(self):
-        """test that exception is raised for invalid emails"""
+        """test that exception is raised for invalid path
+        """
 
         with pytest.raises(FileNotFoundError):
-            self.Granddad.introduction_sentence()
+            self.Granddad.introduction_sentence(path="GrandPy_BotApp/static/json/GrandPy_answer2.json")
