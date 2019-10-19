@@ -5,19 +5,26 @@ from GrandPy_BotApp.media_wiki_handler import MediaWikiHandler
 
 
 def test_api_media_wiki(monkeypatch):
-    """ test media wiki API for location: Paris """
+    """ test media wiki API for location: Paris
+    """
 
     class MockMediaWiki():
+        """ Mock the MediaWiki class
         """
 
-        """
         def __init__(self):
+            """No attribute to initialize
+            """
             pass
 
         def set_api_url(self, api_url, lang):
+            """ No setup to initialize
+            """
             pass
 
         def geosearch(self, latitude, longitude):
+            """ Return a json file.
+            """
 
             place_result = ["Jeux olympiques d'été de 2024",
                             'Ports de Paris',
@@ -32,6 +39,8 @@ def test_api_media_wiki(monkeypatch):
             return place_result
 
         def opensearch(self, place):
+            """ Return a json file.
+            """
 
             story_result = [('Hôtel de ville de Paris',
                              'L’hôtel de ville de Paris, communément appellé l’Hôtel de Ville, est le bâtiment qui héberge les institutions municipales de Paris depuis 1357.',
@@ -39,14 +48,18 @@ def test_api_media_wiki(monkeypatch):
             return story_result
 
     def mock_mediawiki():
+        """ Mock the client method of Media Wiki
+        """
         return MockMediaWiki()
 
+    # Mock up
     monkeypatch.setattr(mediawiki, 'MediaWiki', mock_mediawiki)
 
-    # Let's go
+    # Initialise a handler
     handler = MediaWikiHandler()
     handler.closest_place_name_known(48.856614, 2.3522219)
     handler.story_about_place()
 
+    # Results expected check
     assert handler.place_name == "Jeux olympiques d'été de 2024"
     assert handler.about_sentence == 'L’hôtel de ville de Paris, communément appellé l’Hôtel de Ville, est le bâtiment qui héberge les institutions municipales de Paris depuis 1357.'

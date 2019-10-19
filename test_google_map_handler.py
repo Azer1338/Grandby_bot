@@ -2,19 +2,21 @@
 import googlemaps
 
 from GrandPy_BotApp.google_map_handler import GoogleMapHandler
-
 from config import API_GOOGLE_KEY
 
 
 def test_api_google(monkeypatch):
-    """ test media wiki API for location: Paris """
+    """ test the Google Map API for location: Paris """
 
     class MockGoogleClient():
         """Mock up of the GOOGLE API Client"""
         def __init__(self):
-            """"""
+            """No attribute to initialize"""
+            pass
 
         def geocode(self, place):
+            """ Return a json file.
+            """
 
             coordinates_result = [{'address_components': [{'long_name': 'Paris',
                                                            'short_name': 'Paris',
@@ -51,15 +53,18 @@ def test_api_google(monkeypatch):
             return coordinates_result
 
     def mock_client(key):
-        mock = MockGoogleClient()
+        """ Mock the client method of Google Map
+        """
+        return MockGoogleClient()
 
-        return mock
-
+    # Mock up
     monkeypatch.setattr(googlemaps, 'Client', mock_client)
 
+    # Initialise a handler
     handler = GoogleMapHandler(API_GOOGLE_KEY)
     handler.geocode()
 
+    # Results expected check
     assert handler.lat == 48.856614
     assert handler.lng == 2.3522219
     assert handler.address == 'Paris, France'

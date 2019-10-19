@@ -1,12 +1,12 @@
 import json
 
 
-def parsing_method(sentence):
+def parsing_method(sentence, path="GrandPy_BotApp/static/json/Parse_FR.json"):
     """ Keep major words using stop-words method.
     """
 
     # Load the stop words JSON file
-    with open("GrandPy_BotApp/static/json/Parse_FR.json", "r") as read_file:
+    with open(path, "r") as read_file:
         parse_fr_list = json.load(read_file)
 
     # Convert a chain into list - splitting by an " "(space) element

@@ -5,8 +5,10 @@ from GrandPy_BotApp.grand_py import GrandPy
 
 
 class TestGrandPy:
-    """"""
+    """ Test of the grandPy class.
+    """
 
+    # Generate an instance
     Granddad = GrandPy()
 
     def test_query(self):
@@ -26,7 +28,7 @@ class TestGrandPy:
         assert self.Granddad.answer is not None
 
     def test_introduction_sentence_file_not_found_error(self):
-        """test that exception is raised for invalid path
+        """ Check that an exception is raised when the path is invalid
         """
 
         with pytest.raises(FileNotFoundError):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import pytest
 from GrandPy_BotApp.parse_tool import *
 
 
@@ -61,3 +61,11 @@ def test_parsing_inverse_logical():
     result = parsing_method(query)
 
     assert not result == "Rue de paris 13"
+
+
+def test_parsing_sentence_file_not_found_error():
+    """ Check that an exception is raised when the path is invalid
+    """
+
+    with pytest.raises(FileNotFoundError):
+        parsing_method("Test", path="GrandPy_BotApp/static/json/Parse_FR2.json")
