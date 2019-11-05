@@ -48,7 +48,7 @@ def test_api_media_wiki_geosearch(monkeypatch):
 
     # Initialise a handler
     handler = MediaWikiHandler()
-    handler.closest_place_name_known(48.856614, 2.3522219)
+    handler.provide_closest_place_name_known(48.856614, 2.3522219)
 
     # Results expected check
     assert handler.place_name == "Jeux olympiques d'été de 2024"
@@ -91,7 +91,7 @@ def test_api_media_wiki_opensearch(monkeypatch):
 
     # Initialise a handler
     handler = MediaWikiHandler()
-    handler.story_about_place()
+    handler.provide_story_about_place()
 
     # Results expected check
     assert handler.about_sentence == 'L’hôtel de ville de Paris, communément appellé l’Hôtel de Ville, est le bâtiment qui héberge les institutions municipales de Paris depuis 1357.'

@@ -19,7 +19,7 @@ class MediaWikiHandler:
         # Set french as language
         self.media_wiki_interface.set_api_url(api_url=u'https://fr.wikipedia.org/w/api.php', lang=u'en')
 
-    def closest_place_name_known(self, latitude, longitude):
+    def provide_closest_place_name_known(self, latitude, longitude):
         """ Provide a :self.place_name based
         on :latitude and :longitude.
         """
@@ -34,7 +34,7 @@ class MediaWikiHandler:
             # One among all close places
             self.place_name = api_json_file[0]
 
-    def story_about_place(self):
+    def provide_story_about_place(self):
         """ Provide a short story related to the :self.place_name.
         """
 

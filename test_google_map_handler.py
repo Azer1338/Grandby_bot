@@ -62,7 +62,7 @@ def test_api_google(monkeypatch):
 
     # Initialise a handler
     handler = GoogleMapHandler(API_GOOGLE_KEY)
-    handler.geocode()
+    handler.provide_geocode()
 
     # Results expected check
     assert handler.lat == 48.856614

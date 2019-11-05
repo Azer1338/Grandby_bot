@@ -35,9 +35,9 @@ def result():
     grand_py = GrandPy()
     grand_py.query = request.args.get('query')
     # Parse it
-    grand_py.query = parsing_method(grand_py.query)
+    grand_py.query = apply_parsing_method(grand_py.query)
     # Random sentence from GrandPy
-    grand_py.introduction_sentence()
+    grand_py.provide_kick_off_sentence()
     # Message
     print("------------------------------------")
     print("---GRANDPY---")
@@ -47,7 +47,7 @@ def result():
     # Generate location reference from User's query
     place = GoogleMapHandler(api_key)
     place.place_name = grand_py.query
-    place.geocode()
+    place.provide_geocode()
     # Message
     print("------------------------------------")
     print("---MAPS---")
@@ -57,8 +57,8 @@ def result():
 
     # Generation of a MediaWiki instance
     place_description = MediaWikiHandler()
-    place_description.closest_place_name_known(place.lat, place.lng)
-    place_description.story_about_place()
+    place_description.provide_closest_place_name_known(place.lat, place.lng)
+    place_description.provide_story_about_place()
     # Message
     print("------------------------------------")
     print("---MEDIAWIKI---")

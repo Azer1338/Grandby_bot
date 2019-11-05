@@ -16,7 +16,7 @@ class GrandPy:
         self.query = None
         self.answer = None
 
-    def introduction_sentence(self, path="GrandPy_BotApp/static/json/GrandPy_answer.json"):
+    def provide_kick_off_sentence(self, path="GrandPy_BotApp/static/json/GrandPy_answer.json"):
         """ Provide a random sentence.
         """
 

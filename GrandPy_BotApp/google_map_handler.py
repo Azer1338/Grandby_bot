@@ -16,7 +16,7 @@ class GoogleMapHandler:
         self.address = None
         self.g_maps = googlemaps.Client(key=api_key)
 
-    def geocode(self):
+    def provide_geocode(self):
         """ Provide latitude & longitude from a place name.
         """
 

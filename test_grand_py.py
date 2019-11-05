@@ -23,7 +23,7 @@ class TestGrandPy:
         from json file.
         """
 
-        self.Granddad.introduction_sentence()
+        self.Granddad.provide_kick_off_sentence()
 
         assert self.Granddad.answer is not None
 
@@ -32,4 +32,4 @@ class TestGrandPy:
         """
 
         with pytest.raises(FileNotFoundError):
-            self.Granddad.introduction_sentence(path="GrandPy_BotApp/static/json/GrandPy_answer2.json")
+            self.Granddad.provide_kick_off_sentence(path="GrandPy_BotApp/static/json/GrandPy_answer2.json")

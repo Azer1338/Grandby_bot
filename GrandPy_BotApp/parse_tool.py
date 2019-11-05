@@ -1,7 +1,7 @@
 import json
 
 
-def parsing_method(sentence, path="GrandPy_BotApp/static/json/Parse_FR.json"):
+def apply_parsing_method(sentence, path="GrandPy_BotApp/static/json/Parse_FR.json"):
     """ Keep major words using stop-words method.
     """
 

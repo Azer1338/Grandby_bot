@@ -8,7 +8,7 @@ def test_parsing_method():
     """
 
     query = "abord seraient 12 comparable directement avenue divers mie d'aghonne 31200 huitième Toulouse"
-    result = parsing_method(query)
+    result = apply_parsing_method(query)
 
     assert result == "  12   avenue  mie d'aghonne 31200  Toulouse"
 
@@ -18,7 +18,7 @@ def test_parsing_light_words():
     """
 
     query = "allo allons allô alors anterieur a  été être ô"
-    result = parsing_method(query)
+    result = apply_parsing_method(query)
 
     assert result == "         "
 
@@ -28,7 +28,7 @@ def test_parsing_heavy_words():
     """
 
     query = "  12   avenue  mie d'aghonne 31200  Toulouse"
-    result = parsing_method(query)
+    result = apply_parsing_method(query)
 
     assert result == "  12   avenue  mie d'aghonne 31200  Toulouse"
 
@@ -38,7 +38,7 @@ def test_parsing_empty_chain():
     """
 
     query = ""
-    result = parsing_method(query)
+    result = apply_parsing_method(query)
 
     assert result == ""
 
@@ -48,7 +48,7 @@ def test_parsing_only_integer():
     """
 
     query = "200 1300 0.5 "
-    result = parsing_method(query)
+    result = apply_parsing_method(query)
 
     assert result == "200 1300 0.5 "
 
@@ -58,7 +58,7 @@ def test_parsing_inverse_logical():
     """
 
     query = "Rue de paris 13"
-    result = parsing_method(query)
+    result = apply_parsing_method(query)
 
     assert not result == "Rue de paris 13"
 
@@ -68,4 +68,4 @@ def test_parsing_sentence_file_not_found_error():
     """
 
     with pytest.raises(FileNotFoundError):
-        parsing_method("Test", path="GrandPy_BotApp/static/json/Parse_FR2.json")
+        apply_parsing_method("Test", path="GrandPy_BotApp/static/json/Parse_FR2.json")
