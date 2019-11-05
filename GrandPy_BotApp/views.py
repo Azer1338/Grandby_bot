@@ -2,12 +2,10 @@
 
 from flask import Flask, jsonify, render_template, request
 
-from GrandPy_BotApp.grand_py import GrandPy
 from GrandPy_BotApp.google_map_handler import GoogleMapHandler
+from GrandPy_BotApp.grand_py import GrandPy
 from GrandPy_BotApp.media_wiki_handler import MediaWikiHandler
-
 from GrandPy_BotApp.parse_tool import *
-
 from config import API_GOOGLE_KEY
 
 app = Flask(__name__)

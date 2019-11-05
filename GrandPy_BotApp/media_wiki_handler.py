@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-
 import mediawiki
 
 
 class MediaWikiHandler:
     """ MediaWiki API interface manager.
     """
-    
+
     def __init__(self):
         """ Initialisation.
         """
@@ -24,7 +23,7 @@ class MediaWikiHandler:
         """ Provide a :self.place_name based
         on :latitude and :longitude.
         """
-        
+
         # API call
         api_json_file = self.media_wiki_interface.geosearch(latitude=latitude, longitude=longitude)
 
@@ -38,7 +37,7 @@ class MediaWikiHandler:
     def story_about_place(self):
         """ Provide a short story related to the :self.place_name.
         """
-        
+
         # API call: Search introduction sentence about the place
         api_json_file = self.media_wiki_interface.opensearch(self.place_name)
 
@@ -48,4 +47,3 @@ class MediaWikiHandler:
         else:
 
             self.about_sentence = api_json_file[0][1]
-

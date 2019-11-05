@@ -28,5 +28,5 @@ def parsing_method(sentence, path="GrandPy_BotApp/static/json/Parse_FR.json"):
 
     # Return result
     parsing_result = all_words_chain
-    
+
     return parsing_result

@@ -20,7 +20,6 @@ class GrandPy:
         """ Provide a random sentence.
         """
 
-
         try:
             # Open the json file
             with open(path, "r") as read_file:
@@ -35,4 +34,3 @@ class GrandPy:
             raise FileNotFoundError
             print("ERROR")
             print(error)
-
